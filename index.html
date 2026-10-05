@@ -21,7 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
-  <!-- GitHub Pages CSS -->
+  <!-- Wedding Website CSS -->
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -461,9 +461,7 @@
 
 
 
-    <!-- ===============================
-         PARENTS OF THE GROOM
-    ================================ -->
+    <!-- PARENTS OF THE GROOM -->
 
     <div class="entourage-group">
 
@@ -512,9 +510,7 @@
 
 
 
-    <!-- ===============================
-         PARENTS OF THE BRIDE
-    ================================ -->
+    <!-- PARENTS OF THE BRIDE -->
 
     <div class="entourage-group">
 
@@ -563,9 +559,7 @@
 
 
 
-    <!-- ===============================
-         PRINCIPAL SPONSORS
-    ================================ -->
+    <!-- PRINCIPAL SPONSORS -->
 
     <div class="entourage-group">
 
@@ -614,9 +608,7 @@
 
 
 
-    <!-- ===============================
-         GROOMSMEN
-    ================================ -->
+    <!-- GROOMSMEN -->
 
     <div class="entourage-group">
 
@@ -699,9 +691,7 @@
 
 
 
-    <!-- ===============================
-         BRIDESMAIDS
-    ================================ -->
+    <!-- BRIDESMAIDS -->
 
     <div class="entourage-group">
 
@@ -784,9 +774,7 @@
 
 
 
-    <!-- ===============================
-         LITTLE BEARERS
-    ================================ -->
+    <!-- LITTLE BEARERS -->
 
     <div class="entourage-group">
 
@@ -895,13 +883,184 @@
       day even more meaningful.
     </p>
 
-    <button class="main-button"
-            id="rsvpButton"
-            type="button">
 
-      RSVP NOW
+    <!-- RSVP FORM -->
 
-    </button>
+    <div class="rsvp-card">
+
+      <form id="rsvpForm">
+
+
+        <!-- FULL NAME -->
+
+        <div class="form-group">
+
+          <label for="guestName">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            id="guestName"
+            name="guestName"
+            placeholder="Enter your full name"
+            required>
+
+        </div>
+
+
+
+        <!-- ATTENDANCE -->
+
+        <div class="form-group">
+
+          <label>
+            Will you attend?
+          </label>
+
+          <div class="attendance-options">
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="attendance"
+                value="Joyfully Accept"
+                required>
+
+              <span>
+                Joyfully Accept
+              </span>
+
+            </label>
+
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="attendance"
+                value="Regretfully Decline">
+
+              <span>
+                Regretfully Decline
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- NUMBER OF GUESTS -->
+
+        <div class="form-group">
+
+          <label for="numberOfGuests">
+            Number of Guests
+          </label>
+
+          <select
+            id="numberOfGuests"
+            name="numberOfGuests"
+            required>
+
+            <option value="">
+              Select number of guests
+            </option>
+
+            <option value="1">
+              1 Guest
+            </option>
+
+            <option value="2">
+              2 Guests
+            </option>
+
+            <option value="3">
+              3 Guests
+            </option>
+
+            <option value="4">
+              4 Guests
+            </option>
+
+            <option value="5">
+              5 Guests
+            </option>
+
+            <option value="6">
+              6 Guests
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- CONTACT NUMBER -->
+
+        <div class="form-group">
+
+          <label for="contactNumber">
+            Contact Number
+          </label>
+
+          <input
+            type="tel"
+            id="contactNumber"
+            name="contactNumber"
+            placeholder="09XXXXXXXXX">
+
+        </div>
+
+
+
+        <!-- MESSAGE -->
+
+        <div class="form-group">
+
+          <label for="message">
+            Message for the Couple
+          </label>
+
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="Leave a message for Leandro & Immaculate"></textarea>
+
+        </div>
+
+
+
+        <!-- SUBMIT -->
+
+        <button
+          type="submit"
+          class="main-button rsvp-submit-button"
+          id="rsvpSubmitButton">
+
+          SUBMIT RSVP
+
+        </button>
+
+
+        <!-- STATUS -->
+
+        <div
+          id="rsvpStatus"
+          class="rsvp-status"
+          aria-live="polite">
+        </div>
+
+
+      </form>
+
+    </div>
 
   </div>
 
@@ -932,7 +1091,7 @@
 
 
 <!-- =====================================
-     GITHUB PAGES JAVASCRIPT
+     JAVASCRIPT
 ===================================== -->
 
 <script src="app.js"></script>
