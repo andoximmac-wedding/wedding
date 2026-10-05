@@ -388,6 +388,158 @@ section h2 {
 
 
 /* =========================================================
+   WEDDING GALLERY
+========================================================= */
+
+.gallery-section {
+  background: #f6f2ed;
+  padding: 120px 0;
+}
+
+.gallery-intro {
+  max-width: 650px;
+  margin: 22px auto 0;
+  text-align: center;
+  color: #766960;
+  font-size: 14px;
+}
+
+.gallery-grid {
+  margin-top: 55px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 250px;
+  gap: 16px;
+}
+
+.gallery-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: #ded5cd;
+  cursor: pointer;
+}
+
+.gallery-item:nth-child(1),
+.gallery-item:nth-child(6) {
+  grid-row: span 2;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+}
+
+.gallery-item::after {
+  content: "VIEW PHOTO";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 15px;
+  border: 1px solid rgba(255,255,255,0.8);
+  color: white;
+  background: rgba(45,38,33,0.35);
+  font-size: 9px;
+  letter-spacing: 3px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 80px;
+  background: rgba(28,24,21,0.94);
+}
+
+.gallery-lightbox.active {
+  display: flex;
+}
+
+.gallery-lightbox-content {
+  width: min(1100px, 90vw);
+  height: min(80vh, 800px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-lightbox-content img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+.gallery-lightbox-close,
+.gallery-lightbox-prev,
+.gallery-lightbox-next {
+  position: absolute;
+  border: 0;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  z-index: 2001;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-lightbox-close:hover,
+.gallery-lightbox-prev:hover,
+.gallery-lightbox-next:hover {
+  opacity: 0.65;
+}
+
+.gallery-lightbox-close {
+  top: 20px;
+  right: 30px;
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.gallery-lightbox-prev,
+.gallery-lightbox-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 70px;
+  font-size: 35px;
+}
+
+.gallery-lightbox-prev {
+  left: 20px;
+}
+
+.gallery-lightbox-next {
+  right: 20px;
+}
+
+body.gallery-open {
+  overflow: hidden;
+}
+
+/* =========================================================
    WEDDING DETAILS
 ========================================================= */
 
@@ -777,6 +929,7 @@ section h2 {
 
   .countdown-section,
   .story-section,
+  .gallery-section,
   .details-section,
   .entourage-section,
   .rsvp-section {
@@ -810,6 +963,45 @@ section h2 {
   .photo-placeholder {
     min-height: 350px;
     height: 350px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 190px;
+    gap: 10px;
+  }
+
+  .gallery-item:nth-child(1),
+  .gallery-item:nth-child(6) {
+    grid-row: span 2;
+  }
+
+  .gallery-item::after {
+    display: none;
+  }
+
+  .gallery-lightbox {
+    padding: 60px 15px;
+  }
+
+  .gallery-lightbox-content {
+    width: 92vw;
+    height: 75vh;
+  }
+
+  .gallery-lightbox-prev,
+  .gallery-lightbox-next {
+    width: 42px;
+    height: 55px;
+    font-size: 27px;
+  }
+
+  .gallery-lightbox-prev {
+    left: 5px;
+  }
+
+  .gallery-lightbox-next {
+    right: 5px;
   }
 
   .details-grid {
@@ -890,6 +1082,21 @@ section h2 {
 
   .date-divider {
     height: 55px;
+  }
+
+  .gallery-grid {
+    grid-auto-rows: 150px;
+  }
+
+  .gallery-lightbox-close {
+    top: 15px;
+    right: 18px;
+    font-size: 36px;
+  }
+
+  .gallery-lightbox-prev,
+  .gallery-lightbox-next {
+    font-size: 23px;
   }
 
   .photo-placeholder {
