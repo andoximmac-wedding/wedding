@@ -1,167 +1,374 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-
-  /* ==========================================
-     RSVP GOOGLE APPS SCRIPT WEB APP
-  ========================================== */
+  /* =========================================================
+     RSVP GOOGLE APPS SCRIPT ENDPOINT
+     ========================================================= */
 
   const RSVP_ENDPOINT =
     "https://script.google.com/macros/s/AKfycbyHRluj-FB5v2YY-vr5VHqeo2goCNca_h0tQ_VrF789KNZW_DAddAv4vxH_O5QVmBYgTQ/exec";
 
 
-
-  /* ==========================================
+  /* =========================================================
      MOBILE MENU
-  ========================================== */
+     ========================================================= */
 
-  const menuToggle =
-    document.getElementById("menuToggle");
-
-  const navMenu =
-    document.getElementById("navMenu");
-
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navMenu = document.querySelector("#navMenu");
 
   if (menuToggle && navMenu) {
 
-    menuToggle.addEventListener(
-      "click",
-      function () {
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      menuToggle.classList.toggle("active");
+    });
 
-        navMenu.classList.toggle("active");
+    const navLinks = navMenu.querySelectorAll("a");
 
-      }
-    );
-
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        navMenu.classList.remove("active");
+        menuToggle.classList.remove("active");
+      });
+    });
   }
 
 
+  /* =========================================================
+     NAVIGATION SMOOTH SCROLL
+     ========================================================= */
 
-  /* ==========================================
-     NAVIGATION
-  ========================================== */
+  const navigationLinks = document.querySelectorAll('#navMenu a[href^="#"]');
 
-  const navLinks =
-    document.querySelectorAll("#navMenu a");
+  navigationLinks.forEach(link => {
 
+    link.addEventListener("click", function (e) {
 
-  navLinks.forEach(function (link) {
+      const targetId = this.getAttribute("href");
 
-    link.addEventListener(
-      "click",
-      function (event) {
+      if (!targetId || targetId === "#") return;
 
-        event.preventDefault();
+      const target = document.querySelector(targetId);
 
+      if (!target) return;
 
-        const targetId =
-          this.getAttribute("href");
+      e.preventDefault();
 
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
 
-        if (!targetId) {
-          return;
-        }
-
-
-        const target =
-          document.querySelector(targetId);
-
-
-        if (target) {
-
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-        }
-
-
-        if (navMenu) {
-
-          navMenu.classList.remove("active");
-
-        }
-
-      }
-    );
+    });
 
   });
 
 
+  /* =========================================================
+     LOGO / NAVIGATION EFFECT
+     ========================================================= */
 
-  /* ==========================================
-     LOGO → HOME
-  ========================================== */
-
-  const logo =
-    document.querySelector(".logo");
-
+  const logo = document.querySelector(".logo");
 
   if (logo) {
 
-    logo.addEventListener(
-      "click",
-      function (event) {
+    window.addEventListener("scroll", () => {
 
-        event.preventDefault();
-
-
-        const home =
-          document.getElementById("home");
-
-
-        if (home) {
-
-          home.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-        }
-
-
-        if (navMenu) {
-
-          navMenu.classList.remove("active");
-
-        }
-
+      if (window.scrollY > 30) {
+        logo.classList.add("scrolled");
+      } else {
+        logo.classList.remove("scrolled");
       }
-    );
+
+    });
 
   }
 
 
+  /* =========================================================
+     WEDDING BUTTON
+     ========================================================= */
 
-  /* ==========================================
-     OUR WEDDING BUTTON
-  ========================================== */
-
-  const weddingButton =
-    document.querySelector(
-      '.main-button[href="#details"]'
-    );
-
+  const weddingButton = document.querySelector('.main-button[href="#details"]');
 
   if (weddingButton) {
 
-    weddingButton.addEventListener(
+    weddingButton.addEventListener("click", function (e) {
+
+      const details = document.querySelector("#details");
+
+      if (details) {
+
+        e.preventDefault();
+
+        details.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }
+
+    });
+
+  }
+
+
+  /* =========================================================
+     COUNTDOWN
+     WEDDING DATE:
+     DECEMBER 08, 2026
+     2:00 PM
+     ========================================================= */
+
+  const weddingDate = new Date("2026-12-08T14:00:00").getTime();
+
+  const daysElement = document.getElementById("days");
+  const hoursElement = document.getElementById("hours");
+  const minutesElement = document.getElementById("minutes");
+  const secondsElement = document.getElementById("seconds");
+
+  function updateCountdown() {
+
+    const now = new Date().getTime();
+
+    const distance = weddingDate - now;
+
+    if (distance <= 0) {
+
+      if (daysElement) daysElement.textContent = "00";
+      if (hoursElement) hoursElement.textContent = "00";
+      if (minutesElement) minutesElement.textContent = "00";
+      if (secondsElement) secondsElement.textContent = "00";
+
+      return;
+    }
+
+    const days = Math.floor(
+      distance / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) /
+      (1000 * 60 * 60)
+    );
+
+    const minutes = Math.floor(
+      (distance % (1000 * 60 * 60)) /
+      (1000 * 60)
+    );
+
+    const seconds = Math.floor(
+      (distance % (1000 * 60)) /
+      1000
+    );
+
+    if (daysElement) {
+      daysElement.textContent = String(days).padStart(2, "0");
+    }
+
+    if (hoursElement) {
+      hoursElement.textContent = String(hours).padStart(2, "0");
+    }
+
+    if (minutesElement) {
+      minutesElement.textContent = String(minutes).padStart(2, "0");
+    }
+
+    if (secondsElement) {
+      secondsElement.textContent = String(seconds).padStart(2, "0");
+    }
+
+  }
+
+  updateCountdown();
+
+  setInterval(updateCountdown, 1000);
+
+
+  /* =========================================================
+     WEDDING GALLERY
+     ========================================================= */
+
+  const galleryItems = document.querySelectorAll(".gallery-item");
+
+  const galleryLightbox =
+    document.getElementById("galleryLightbox");
+
+  const galleryLightboxImage =
+    document.getElementById("galleryLightboxImage");
+
+  const galleryLightboxCaption =
+    document.getElementById("galleryLightboxCaption");
+
+  const galleryClose =
+    document.getElementById("galleryClose");
+
+  const galleryPrev =
+    document.getElementById("galleryPrev");
+
+  const galleryNext =
+    document.getElementById("galleryNext");
+
+
+  let currentGalleryIndex = 0;
+
+
+  function openGallery(index) {
+
+    if (!galleryItems.length) return;
+
+    currentGalleryIndex = index;
+
+    const item = galleryItems[currentGalleryIndex];
+
+    if (!item) return;
+
+    const image = item.querySelector("img");
+
+    if (!image) return;
+
+    if (galleryLightboxImage) {
+
+      galleryLightboxImage.src = image.src;
+
+      galleryLightboxImage.alt =
+        image.alt || "Wedding Gallery Photo";
+
+    }
+
+    if (galleryLightboxCaption) {
+
+      galleryLightboxCaption.textContent =
+        image.alt || "";
+
+    }
+
+    if (galleryLightbox) {
+
+      galleryLightbox.classList.add("active");
+
+      galleryLightbox.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "gallery-lightbox-open"
+      );
+
+    }
+
+  }
+
+
+  function closeGallery() {
+
+    if (!galleryLightbox) return;
+
+    galleryLightbox.classList.remove("active");
+
+    galleryLightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "gallery-lightbox-open"
+    );
+
+  }
+
+
+  function showPreviousGalleryImage() {
+
+    if (!galleryItems.length) return;
+
+    currentGalleryIndex--;
+
+    if (currentGalleryIndex < 0) {
+
+      currentGalleryIndex =
+        galleryItems.length - 1;
+
+    }
+
+    openGallery(currentGalleryIndex);
+
+  }
+
+
+  function showNextGalleryImage() {
+
+    if (!galleryItems.length) return;
+
+    currentGalleryIndex++;
+
+    if (
+      currentGalleryIndex >=
+      galleryItems.length
+    ) {
+
+      currentGalleryIndex = 0;
+
+    }
+
+    openGallery(currentGalleryIndex);
+
+  }
+
+
+  galleryItems.forEach((item, index) => {
+
+    item.addEventListener("click", () => {
+
+      openGallery(index);
+
+    });
+
+  });
+
+
+  if (galleryClose) {
+
+    galleryClose.addEventListener(
       "click",
-      function (event) {
+      closeGallery
+    );
 
-        event.preventDefault();
-
-
-        const details =
-          document.getElementById("details");
+  }
 
 
-        if (details) {
+  if (galleryPrev) {
 
-          details.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+    galleryPrev.addEventListener(
+      "click",
+      showPreviousGalleryImage
+    );
+
+  }
+
+
+  if (galleryNext) {
+
+    galleryNext.addEventListener(
+      "click",
+      showNextGalleryImage
+    );
+
+  }
+
+
+  /* =========================================================
+     CLOSE LIGHTBOX WHEN CLICKING BACKDROP
+     ========================================================= */
+
+  if (galleryLightbox) {
+
+    galleryLightbox.addEventListener(
+      "click",
+      function (e) {
+
+        if (e.target === galleryLightbox) {
+
+          closeGallery();
 
         }
 
@@ -171,405 +378,142 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+  /* =========================================================
+     KEYBOARD CONTROLS FOR GALLERY
+     ========================================================= */
 
-  /* ==========================================
-     WEDDING COUNTDOWN
+  document.addEventListener("keydown", (e) => {
 
-     DECEMBER 08, 2026
-     2:00 PM
-  ========================================== */
-
-  const weddingDate =
-    new Date(
-      "2026-12-08T14:00:00"
-    ).getTime();
-
-
-
-  function updateCountdown() {
-
-    const now =
-      new Date().getTime();
-
-
-    const distance =
-      weddingDate - now;
-
-
-    if (distance <= 0) {
-
-      setCountdown(
-        "00",
-        "00",
-        "00",
-        "00"
-      );
-
+    if (
+      !galleryLightbox ||
+      !galleryLightbox.classList.contains("active")
+    ) {
       return;
+    }
+
+    if (e.key === "Escape") {
+
+      closeGallery();
 
     }
 
+    if (e.key === "ArrowLeft") {
 
-    const days =
-      Math.floor(
-        distance /
-        (1000 * 60 * 60 * 24)
-      );
-
-
-    const hours =
-      Math.floor(
-        (
-          distance %
-          (1000 * 60 * 60 * 24)
-        ) /
-        (1000 * 60 * 60)
-      );
-
-
-    const minutes =
-      Math.floor(
-        (
-          distance %
-          (1000 * 60 * 60)
-        ) /
-        (1000 * 60)
-      );
-
-
-    const seconds =
-      Math.floor(
-        (
-          distance %
-          (1000 * 60)
-        ) /
-        1000
-      );
-
-
-    setCountdown(
-
-      String(days).padStart(
-        2,
-        "0"
-      ),
-
-      String(hours).padStart(
-        2,
-        "0"
-      ),
-
-      String(minutes).padStart(
-        2,
-        "0"
-      ),
-
-      String(seconds).padStart(
-        2,
-        "0"
-      )
-
-    );
-
-  }
-
-
-
-  /* ==========================================
-     SET COUNTDOWN
-  ========================================== */
-
-  function setCountdown(
-    days,
-    hours,
-    minutes,
-    seconds
-  ) {
-
-
-    const daysElement =
-      document.getElementById("days");
-
-
-    const hoursElement =
-      document.getElementById("hours");
-
-
-    const minutesElement =
-      document.getElementById("minutes");
-
-
-    const secondsElement =
-      document.getElementById("seconds");
-
-
-    if (daysElement) {
-
-      daysElement.textContent =
-        days;
+      showPreviousGalleryImage();
 
     }
 
+    if (e.key === "ArrowRight") {
 
-    if (hoursElement) {
-
-      hoursElement.textContent =
-        hours;
+      showNextGalleryImage();
 
     }
 
-
-    if (minutesElement) {
-
-      minutesElement.textContent =
-        minutes;
-
-    }
+  });
 
 
-    if (secondsElement) {
-
-      secondsElement.textContent =
-        seconds;
-
-    }
-
-  }
-
-
-
-  /* ==========================================
-     START COUNTDOWN
-  ========================================== */
-
-  updateCountdown();
-
-
-  setInterval(
-    updateCountdown,
-    1000
-  );
-
-
-
-  /* ==========================================
+  /* =========================================================
      RSVP FORM
-  ========================================== */
+     ========================================================= */
 
   const rsvpForm =
     document.getElementById("rsvpForm");
 
-
-  const rsvpSubmitButton =
-    document.getElementById(
-      "rsvpSubmitButton"
-    );
-
-
   const rsvpStatus =
-    document.getElementById(
-      "rsvpStatus"
-    );
+    document.getElementById("rsvpStatus");
 
 
   if (rsvpForm) {
 
     rsvpForm.addEventListener(
       "submit",
-      async function (event) {
+      async function (e) {
 
-        event.preventDefault();
-
-
-        /* ======================================
-           GET FORM VALUES
-        ====================================== */
-
-        const guestName =
-          document
-            .getElementById("guestName")
-            .value
-            .trim();
+        e.preventDefault();
 
 
-        const attendanceElement =
-          document.querySelector(
-            'input[name="attendance"]:checked'
+        const submitButton =
+          rsvpForm.querySelector(
+            'button[type="submit"]'
           );
 
 
-        const attendance =
-          attendanceElement
-            ? attendanceElement.value
-            : "";
+        const formData =
+          new FormData(rsvpForm);
 
-
-        const numberOfGuests =
-          document
-            .getElementById(
-              "numberOfGuests"
-            )
-            .value;
-
-
-        const contactNumber =
-          document
-            .getElementById(
-              "contactNumber"
-            )
-            .value
-            .trim();
-
-
-        const message =
-          document
-            .getElementById("message")
-            .value
-            .trim();
-
-
-
-        /* ======================================
-           VALIDATION
-        ====================================== */
-
-        if (!guestName) {
-
-          showRSVPStatus(
-            "Please enter your full name.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        if (!attendance) {
-
-          showRSVPStatus(
-            "Please select whether you will attend.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        if (!numberOfGuests) {
-
-          showRSVPStatus(
-            "Please select the number of guests.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-
-        /* ======================================
-           DISABLE BUTTON
-        ====================================== */
-
-        if (rsvpSubmitButton) {
-
-          rsvpSubmitButton.disabled =
-            true;
-
-          rsvpSubmitButton.textContent =
-            "SUBMITTING...";
-
-        }
-
-
-        showRSVPStatus(
-          "Please wait while we submit your RSVP...",
-          "success"
-        );
-
-
-
-        /* ======================================
-           PREPARE DATA
-        ====================================== */
 
         const rsvpData = {
 
-          guestName:
-            guestName,
+          fullName:
+            formData.get("fullName") || "",
 
           attendance:
-            attendance,
+            formData.get("attendance") || "",
 
-          numberOfGuests:
-            numberOfGuests,
+          numberGuests:
+            formData.get("numberGuests") || "",
 
           contactNumber:
-            contactNumber,
+            formData.get("contactNumber") || "",
 
           message:
-            message
+            formData.get("message") || ""
 
         };
 
 
+        if (submitButton) {
 
-        /* ======================================
-           SEND TO GOOGLE APPS SCRIPT
-        ====================================== */
+          submitButton.disabled = true;
+
+          submitButton.textContent =
+            "SENDING...";
+
+        }
+
+
+        if (rsvpStatus) {
+
+          rsvpStatus.textContent =
+            "Sending your RSVP...";
+
+          rsvpStatus.className =
+            "rsvp-status";
+
+        }
+
 
         try {
 
           await fetch(
             RSVP_ENDPOINT,
             {
-
               method: "POST",
 
               mode: "no-cors",
 
               headers: {
-
                 "Content-Type":
                   "text/plain;charset=utf-8"
-
               },
 
               body:
-                JSON.stringify(
-                  rsvpData
-                )
+                JSON.stringify(rsvpData)
 
             }
           );
 
 
-          /* ====================================
-             SUCCESS MESSAGE
-          ==================================== */
+          if (rsvpStatus) {
 
-          showRSVPStatus(
+            rsvpStatus.textContent =
+              "Thank you! Your RSVP has been submitted successfully.";
 
-            "Thank you, " +
-            guestName +
-            "! ❤️<br><br>" +
+            rsvpStatus.className =
+              "rsvp-status success";
 
-            "Your RSVP has been received.<br>" +
+          }
 
-            "We are so happy to celebrate " +
-            "with you on December 08, 2026.",
-
-            "success"
-
-          );
-
-
-          /* ====================================
-             CLEAR FORM
-          ==================================== */
 
           rsvpForm.reset();
 
@@ -577,71 +521,36 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
 
           console.error(
-            "RSVP Error:",
+            "RSVP submission error:",
             error
           );
 
 
-          showRSVPStatus(
+          if (rsvpStatus) {
 
-            "We were unable to submit your RSVP. " +
-            "Please try again.",
+            rsvpStatus.textContent =
+              "Something went wrong. Please try again.";
 
-            "error"
+            rsvpStatus.className =
+              "rsvp-status error";
 
-          );
+          }
 
-        }
+        } finally {
 
+          if (submitButton) {
 
-        /* ======================================
-           ENABLE BUTTON AGAIN
-        ====================================== */
+            submitButton.disabled = false;
 
-        if (rsvpSubmitButton) {
+            submitButton.textContent =
+              "SUBMIT RSVP";
 
-          rsvpSubmitButton.disabled =
-            false;
-
-          rsvpSubmitButton.textContent =
-            "SUBMIT RSVP";
+          }
 
         }
 
       }
     );
-
-  }
-
-
-
-  /* ==========================================
-     RSVP STATUS MESSAGE
-  ========================================== */
-
-  function showRSVPStatus(
-    message,
-    type
-  ) {
-
-    if (!rsvpStatus) {
-      return;
-    }
-
-
-    rsvpStatus.innerHTML =
-      message;
-
-
-    rsvpStatus.className =
-      "rsvp-status " +
-      type;
-
-
-    rsvpStatus.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest"
-    });
 
   }
 
