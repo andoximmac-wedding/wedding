@@ -2,6 +2,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ==========================================
+     RSVP GOOGLE APPS SCRIPT WEB APP
+  ========================================== */
+
+  const RSVP_ENDPOINT =
+    "https://script.google.com/macros/s/AKfycbyHRluj-FB5v2YY-vr5VHqeo2goCNca_h0tQ_VrF789KNZW_DAddAv4vxH_O5QVmBYgTQ/exec";
+
+
+
+  /* ==========================================
      MOBILE MENU
   ========================================== */
 
@@ -344,27 +353,295 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ==========================================
-     RSVP BUTTON
+     RSVP FORM
   ========================================== */
 
-  const rsvpButton =
-    document.getElementById("rsvpButton");
+  const rsvpForm =
+    document.getElementById("rsvpForm");
 
 
-  if (rsvpButton) {
+  const rsvpSubmitButton =
+    document.getElementById(
+      "rsvpSubmitButton"
+    );
 
-    rsvpButton.addEventListener(
-      "click",
-      function () {
 
-        alert(
-          "Thank you for celebrating " +
-          "with Leandro & Immaculate!\n\n" +
-          "The RSVP form will be available soon."
+  const rsvpStatus =
+    document.getElementById(
+      "rsvpStatus"
+    );
+
+
+  if (rsvpForm) {
+
+    rsvpForm.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        /* ======================================
+           GET FORM VALUES
+        ====================================== */
+
+        const guestName =
+          document
+            .getElementById("guestName")
+            .value
+            .trim();
+
+
+        const attendanceElement =
+          document.querySelector(
+            'input[name="attendance"]:checked'
+          );
+
+
+        const attendance =
+          attendanceElement
+            ? attendanceElement.value
+            : "";
+
+
+        const numberOfGuests =
+          document
+            .getElementById(
+              "numberOfGuests"
+            )
+            .value;
+
+
+        const contactNumber =
+          document
+            .getElementById(
+              "contactNumber"
+            )
+            .value
+            .trim();
+
+
+        const message =
+          document
+            .getElementById("message")
+            .value
+            .trim();
+
+
+
+        /* ======================================
+           VALIDATION
+        ====================================== */
+
+        if (!guestName) {
+
+          showRSVPStatus(
+            "Please enter your full name.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (!attendance) {
+
+          showRSVPStatus(
+            "Please select whether you will attend.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (!numberOfGuests) {
+
+          showRSVPStatus(
+            "Please select the number of guests.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+
+        /* ======================================
+           DISABLE BUTTON
+        ====================================== */
+
+        if (rsvpSubmitButton) {
+
+          rsvpSubmitButton.disabled =
+            true;
+
+          rsvpSubmitButton.textContent =
+            "SUBMITTING...";
+
+        }
+
+
+        showRSVPStatus(
+          "Please wait while we submit your RSVP...",
+          "success"
         );
+
+
+
+        /* ======================================
+           PREPARE DATA
+        ====================================== */
+
+        const rsvpData = {
+
+          guestName:
+            guestName,
+
+          attendance:
+            attendance,
+
+          numberOfGuests:
+            numberOfGuests,
+
+          contactNumber:
+            contactNumber,
+
+          message:
+            message
+
+        };
+
+
+
+        /* ======================================
+           SEND TO GOOGLE APPS SCRIPT
+        ====================================== */
+
+        try {
+
+          await fetch(
+            RSVP_ENDPOINT,
+            {
+
+              method: "POST",
+
+              mode: "no-cors",
+
+              headers: {
+
+                "Content-Type":
+                  "text/plain;charset=utf-8"
+
+              },
+
+              body:
+                JSON.stringify(
+                  rsvpData
+                )
+
+            }
+          );
+
+
+          /* ====================================
+             SUCCESS MESSAGE
+          ==================================== */
+
+          showRSVPStatus(
+
+            "Thank you, " +
+            guestName +
+            "! ❤️<br><br>" +
+
+            "Your RSVP has been received.<br>" +
+
+            "We are so happy to celebrate " +
+            "with you on December 08, 2026.",
+
+            "success"
+
+          );
+
+
+          /* ====================================
+             CLEAR FORM
+          ==================================== */
+
+          rsvpForm.reset();
+
+
+        } catch (error) {
+
+          console.error(
+            "RSVP Error:",
+            error
+          );
+
+
+          showRSVPStatus(
+
+            "We were unable to submit your RSVP. " +
+            "Please try again.",
+
+            "error"
+
+          );
+
+        }
+
+
+        /* ======================================
+           ENABLE BUTTON AGAIN
+        ====================================== */
+
+        if (rsvpSubmitButton) {
+
+          rsvpSubmitButton.disabled =
+            false;
+
+          rsvpSubmitButton.textContent =
+            "SUBMIT RSVP";
+
+        }
 
       }
     );
+
+  }
+
+
+
+  /* ==========================================
+     RSVP STATUS MESSAGE
+  ========================================== */
+
+  function showRSVPStatus(
+    message,
+    type
+  ) {
+
+    if (!rsvpStatus) {
+      return;
+    }
+
+
+    rsvpStatus.innerHTML =
+      message;
+
+
+    rsvpStatus.className =
+      "rsvp-status " +
+      type;
+
+
+    rsvpStatus.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
 
   }
 
