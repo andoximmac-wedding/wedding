@@ -37,30 +37,48 @@ document.addEventListener("DOMContentLoaded", () => {
      NAVIGATION SMOOTH SCROLL
      ========================================================= */
 
-  const navigationLinks = document.querySelectorAll('#navMenu a[href^="#"]');
+ /* =========================================================
+   NAVIGATION SMOOTH SCROLL
+   ========================================================= */
 
-  navigationLinks.forEach(link => {
+const navigationLinks = document.querySelectorAll('#navMenu a[href^="#"]');
 
-    link.addEventListener("click", function (e) {
+navigationLinks.forEach(link => {
 
-      const targetId = this.getAttribute("href");
+  link.addEventListener("click", function (e) {
 
-      if (!targetId || targetId === "#") return;
+    const targetId = this.getAttribute("href");
 
-      const target = document.querySelector(targetId);
+    if (!targetId || targetId === "#") return;
 
-      if (!target) return;
+    /* HOME BUTTON */
+    if (targetId === "#home") {
 
       e.preventDefault();
 
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
       });
 
+      return;
+    }
+
+    /* OTHER NAVIGATION LINKS */
+    const target = document.querySelector(targetId);
+
+    if (!target) return;
+
+    e.preventDefault();
+
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
     });
 
   });
+
+});
 
 
   /* =========================================================
