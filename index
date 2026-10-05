@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Leandro & Immaculate | Our Wedding</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+  <!-- GitHub Pages CSS -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     NAVIGATION
+===================================== -->
+
+<header class="navbar">
+
+  <div class="nav-container">
+
+    <a href="#home"
+       class="logo">
+      L & I
+    </a>
+
+    <button class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open navigation menu">
+      ☰
+    </button>
+
+    <nav id="navMenu">
+
+      <a href="#home">
+        Home
+      </a>
+
+      <a href="#story">
+        Our Story
+      </a>
+
+      <a href="#details">
+        Wedding
+      </a>
+
+      <a href="#entourage">
+        Entourage
+      </a>
+
+      <a href="#rsvp">
+        RSVP
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+<!-- =====================================
+     HERO
+===================================== -->
+
+<section id="home"
+         class="hero">
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <p class="small-title">
+      TOGETHER WITH THEIR FAMILIES
+    </p>
+
+    <h1>
+
+      Leandro
+
+      <span>&</span>
+
+      Immaculate
+
+    </h1>
+
+    <p class="hero-subtitle">
+      ARE GETTING MARRIED
+    </p>
+
+    <div class="wedding-date">
+
+      <span>
+        20
+      </span>
+
+      <span class="date-line"></span>
+
+      <span>
+        26
+      </span>
+
+    </div>
+
+    <p class="date-text">
+      SAVE THE DATE
+    </p>
+
+    <a href="#details"
+       class="main-button">
+
+      OUR WEDDING
+
+    </a>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================
+     COUNTDOWN
+===================================== -->
+
+<section class="countdown-section">
+
+  <div class="section-container">
+
+    <p class="section-label">
+      THE BIG DAY
+    </p>
+
+    <h2>
+      Counting Down to Forever
+    </h2>
+
+    <div class="countdown">
+
+      <div class="count-box">
+
+        <span id="days">
+          00
+        </span>
+
+        <small>
+          DAYS
+        </small>
+
+      </div>
+
+
+      <div class="count-box">
+
+        <span id="hours">
+          00
+        </span>
+
+        <small>
+          HOURS
+        </small>
+
+      </div>
+
+
+      <div class="count-box">
+
+        <span id="minutes">
+          00
+        </span>
+
+        <small>
+          MINUTES
+        </small>
+
+      </div>
+
+
+      <div class="count-box">
+
+        <span id="seconds">
+          00
+        </span>
+
+        <small>
+          SECONDS
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================
+     OUR STORY
+===================================== -->
+
+<section id="story"
+         class="story-section">
+
+  <div class="section-container">
+
+    <p class="section-label">
+      OUR STORY
+    </p>
+
+    <h2>
+      Two Hearts, One Journey
+    </h2>
+
+    <div class="story-content">
+
+      <div class="story-image">
+
+        <div class="image-placeholder">
+          OUR PHOTO
+        </div>
+
+      </div>
+
+
+      <div class="story-text">
+
+        <h3>
+          Once Upon a Time...
+        </h3>
+
+        <p>
+          Every love story is beautiful,
+          but ours is our favorite.
+        </p>
+
+        <p>
+          From the moment our paths crossed,
+          we began creating memories that
+          we will cherish forever.
+        </p>
+
+        <p>
+          Through laughter, challenges,
+          adventures, and countless beautiful
+          moments, our journey has brought us
+          to this special day.
+        </p>
+
+        <p class="signature">
+
+          With love,<br>
+
+          <strong>
+            Leandro & Immaculate
+          </strong>
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================
+     WEDDING DETAILS
+===================================== -->
+
+<section id="details"
+         class="details-section">
+
+  <div class="section-container">
+
+    <p class="section-label">
+      JOIN US
+    </p>
+
+    <h2>
+      Our Wedding Day
+    </h2>
+
+
+    <div class="wedding-date-card">
+
+      <p class="month">
+        DECEMBER
+      </p>
+
+      <div class="big-date">
+        08
+      </div>
+
+      <p class="year">
+        2026
+      </p>
+
+      <div class="date-divider"></div>
+
+      <p class="time">
+        2:00 PM
+      </p>
+
+    </div>
+
+
+    <div class="details-grid">
+
+
+      <!-- CEREMONY -->
+
+      <div class="detail-card">
+
+        <div class="detail-icon">
+          ⛪
+        </div>
+
+        <h3>
+          Ceremony
+        </h3>
+
+        <p>
+          Wedding Ceremony
+        </p>
+
+        <span>
+          Ceremony Venue<br>
+          Saint John the Baptist Parish - Pambujan N. Samar
+        </span>
+
+        <a
+          href="https://maps.app.goo.gl/S6LoMx2xGfJ2oiqN7"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="map-button">
+
+          VIEW MAP
+
+        </a>
+
+      </div>
+
+
+
+      <!-- RECEPTION -->
+
+      <div class="detail-card">
+
+        <div class="detail-icon">
+          🥂
+        </div>
+
+        <h3>
+          Reception
+        </h3>
+
+        <p>
+          Wedding Reception
+        </p>
+
+        <span>
+          Reception Venue<br>
+          Manuel Tan Balanquit, Sr. Multi-Purpose Gymnatorium
+        </span>
+
+        <a
+          href="https://maps.app.goo.gl/yNBSUjgF1WTffqwk6"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="map-button">
+
+          VIEW MAP
+
+        </a>
+
+      </div>
+
+
+
+      <!-- DRESS CODE -->
+
+      <div class="detail-card">
+
+        <div class="detail-icon">
+          👗
+        </div>
+
+        <h3>
+          Dress Code
+        </h3>
+
+        <p>
+          Formal Attire
+        </p>
+
+        <span>
+          Please come dressed in your
+          elegant formal attire.
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================
+     WEDDING ENTOURAGE
+===================================== -->
+
+<section id="entourage"
+         class="entourage-section">
+
+  <div class="section-container">
+
+    <p class="section-label">
+      OUR SPECIAL PEOPLE
+    </p>
+
+    <h2>
+      Wedding Entourage
+    </h2>
+
+    <p class="section-description">
+
+      The people who will stand beside us
+      as we begin this beautiful chapter
+      of our lives.
+
+    </p>
+
+
+
+    <!-- ===============================
+         PARENTS OF THE GROOM
+    ================================ -->
+
+    <div class="entourage-group">
+
+      <h3 class="entourage-title">
+        Parents of the Groom
+      </h3>
+
+      <div class="people-grid">
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name of Father
+          </h4>
+
+          <span>
+            Father of the Groom
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name of Mother
+          </h4>
+
+          <span>
+            Mother of the Groom
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ===============================
+         PARENTS OF THE BRIDE
+    ================================ -->
+
+    <div class="entourage-group">
+
+      <h3 class="entourage-title">
+        Parents of the Bride
+      </h3>
+
+      <div class="people-grid">
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name of Father
+          </h4>
+
+          <span>
+            Father of the Bride
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name of Mother
+          </h4>
+
+          <span>
+            Mother of the Bride
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ===============================
+         PRINCIPAL SPONSORS
+    ================================ -->
+
+    <div class="entourage-group">
+
+      <h3 class="entourage-title">
+        Principal Sponsors
+      </h3>
+
+      <div class="people-grid">
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Sponsor Name
+          </h4>
+
+          <span>
+            Principal Sponsor
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Sponsor Name
+          </h4>
+
+          <span>
+            Principal Sponsor
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ===============================
+         GROOMSMEN
+    ================================ -->
+
+    <div class="entourage-group">
+
+      <h3 class="entourage-title">
+        Groomsmen
+      </h3>
+
+      <div class="people-grid">
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Groomsman 1
+          </h4>
+
+          <span>
+            Groomsman
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Groomsman 2
+          </h4>
+
+          <span>
+            Groomsman
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Groomsman 3
+          </h4>
+
+          <span>
+            Groomsman
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Groomsman 4
+          </h4>
+
+          <span>
+            Groomsman
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ===============================
+         BRIDESMAIDS
+    ================================ -->
+
+    <div class="entourage-group">
+
+      <h3 class="entourage-title">
+        Bridesmaids
+      </h3>
+
+      <div class="people-grid">
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Bridesmaid 1
+          </h4>
+
+          <span>
+            Bridesmaid
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Bridesmaid 2
+          </h4>
+
+          <span>
+            Bridesmaid
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Bridesmaid 3
+          </h4>
+
+          <span>
+            Bridesmaid
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Bridesmaid 4
+          </h4>
+
+          <span>
+            Bridesmaid
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ===============================
+         LITTLE BEARERS
+    ================================ -->
+
+    <div class="entourage-group">
+
+      <h3 class="entourage-title">
+        Our Little Bearers
+      </h3>
+
+      <div class="people-grid">
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name
+          </h4>
+
+          <span>
+            Ring Bearer
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name
+          </h4>
+
+          <span>
+            Bible Bearer
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name
+          </h4>
+
+          <span>
+            Coin Bearer
+          </span>
+
+        </div>
+
+
+        <div class="person-card">
+
+          <div class="person-photo">
+            PHOTO
+          </div>
+
+          <h4>
+            Name
+          </h4>
+
+          <span>
+            Flower Girl
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================
+     RSVP
+===================================== -->
+
+<section id="rsvp"
+         class="rsvp-section">
+
+  <div class="section-container">
+
+    <p class="section-label">
+      WE HOPE YOU CAN JOIN US
+    </p>
+
+    <h2>
+      Will You Celebrate With Us?
+    </h2>
+
+    <p>
+      Your presence will make our special
+      day even more meaningful.
+    </p>
+
+    <button class="main-button"
+            id="rsvpButton"
+            type="button">
+
+      RSVP NOW
+
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+  <h2>
+    L & I
+  </h2>
+
+  <p>
+    Leandro & Immaculate
+  </p>
+
+  <span>
+    Made with love ♡
+  </span>
+
+</footer>
+
+
+
+<!-- =====================================
+     GITHUB PAGES JAVASCRIPT
+===================================== -->
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
