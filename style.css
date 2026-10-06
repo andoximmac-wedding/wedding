@@ -1094,3 +1094,62 @@ body.gallery-lightbox-open {
   }
 
 }
+
+
+/* =========================================================
+   DRESS CODE - BEIGE COLOR PALETTE
+========================================================= */
+
+.beige-palette {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.beige-shade {
+  display: block;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Beige shades */
+
+.shade-1 {
+  background: #b59670;
+}
+
+.shade-2 {
+  background: #bea27b;
+}
+
+.shade-3 {
+  background: #c7ad88;
+}
+
+.shade-4 {
+  background: #cdb596;
+}
+
+.shade-5 {
+  background: #d5c0a5;
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+  .beige-palette {
+    gap: 9px;
+  }
+
+  .beige-shade {
+    width: 45px;
+    height: 45px;
+  }
+
+}
