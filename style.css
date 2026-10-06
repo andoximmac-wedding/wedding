@@ -392,139 +392,117 @@ section h2 {
 ========================================================= */
 
 .gallery-section {
-  background: #f6f2ed;
+  background: #e8e0d8;
   padding: 120px 0;
 }
 
-.gallery-intro {
-  max-width: 650px;
-  margin: 22px auto 0;
-  text-align: center;
-  color: #766960;
-  font-size: 14px;
-}
-
 .gallery-grid {
-  margin-top: 55px;
+  margin-top: 60px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 250px;
-  gap: 16px;
+  gap: 18px;
 }
 
 .gallery-item {
   position: relative;
+  display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
   padding: 0;
-  border: 0;
-  overflow: hidden;
+  border: 1px solid rgba(90,70,55,0.16);
   background: #ded5cd;
+  overflow: hidden;
   cursor: pointer;
-}
-
-.gallery-item:nth-child(1),
-.gallery-item:nth-child(6) {
-  grid-row: span 2;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-}
-
-.gallery-item::after {
-  content: "VIEW PHOTO";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 10px 15px;
-  border: 1px solid rgba(255,255,255,0.8);
-  color: white;
-  background: rgba(45,38,33,0.35);
-  font-size: 9px;
-  letter-spacing: 3px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+  transition: transform 0.5s ease, opacity 0.3s ease;
 }
 
 .gallery-item:hover img {
   transform: scale(1.05);
 }
 
-.gallery-item:hover::after {
-  opacity: 1;
-}
-
 .gallery-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 2000;
-  display: none;
+  z-index: 3000;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 70px 80px;
-  background: rgba(28,24,21,0.94);
+  padding: 35px 90px;
+  background: rgba(35,29,25,0.94);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .gallery-lightbox.active {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .gallery-lightbox-content {
-  width: min(1100px, 90vw);
-  height: min(80vh, 800px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: min(1000px, 90vw);
+  max-height: 90vh;
+  text-align: center;
 }
 
 .gallery-lightbox-content img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 82vh;
   width: auto;
   height: auto;
+  margin: 0 auto;
   object-fit: contain;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.35);
 }
 
-.gallery-lightbox-close,
-.gallery-lightbox-prev,
-.gallery-lightbox-next {
+.gallery-lightbox-content p {
+  margin-top: 14px;
+  color: #eee5dc;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.gallery-lightbox button {
   position: absolute;
-  border: 0;
+  border: none;
   background: transparent;
-  color: white;
+  color: #f7efe7;
   cursor: pointer;
-  z-index: 2001;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  line-height: 1;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.gallery-lightbox-close:hover,
-.gallery-lightbox-prev:hover,
-.gallery-lightbox-next:hover {
-  opacity: 0.65;
+.gallery-lightbox button:hover {
+  opacity: 0.7;
+  transform: scale(1.08);
 }
 
 .gallery-lightbox-close {
-  top: 20px;
+  top: 25px;
   right: 30px;
-  font-size: 42px;
-  font-weight: 300;
-  line-height: 1;
+  font-size: 40px;
 }
 
 .gallery-lightbox-prev,
 .gallery-lightbox-next {
   top: 50%;
   transform: translateY(-50%);
-  width: 55px;
-  height: 70px;
-  font-size: 35px;
+  font-family: Arial, sans-serif;
+  font-size: 50px;
+  padding: 20px;
+}
+
+.gallery-lightbox-prev:hover,
+.gallery-lightbox-next:hover {
+  transform: translateY(-50%) scale(1.08);
 }
 
 .gallery-lightbox-prev {
@@ -535,7 +513,7 @@ section h2 {
   right: 20px;
 }
 
-body.gallery-open {
+body.gallery-lightbox-open {
   overflow: hidden;
 }
 
@@ -611,6 +589,33 @@ body.gallery-open {
   color: #967f6c;
   margin-bottom: 17px;
 }
+
+.dress-code-note {
+  margin-bottom: 22px !important;
+}
+
+.beige-palette {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.beige-swatch {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.85);
+  box-shadow: 0 2px 8px rgba(70,55,45,0.16);
+}
+
+.beige-swatch.cream { background: #F5EBDD; }
+.beige-swatch.champagne { background: #F1E0C5; }
+.beige-swatch.sand { background: #D8C3A5; }
+.beige-swatch.nude { background: #D7B9A5; }
+.beige-swatch.taupe { background: #B8A08E; }
+.beige-swatch.mocha { background: #8B6F5A; }
 
 .detail-card p:not(.detail-time) {
   font-size: 13px;
@@ -929,7 +934,6 @@ body.gallery-open {
 
   .countdown-section,
   .story-section,
-  .gallery-section,
   .details-section,
   .entourage-section,
   .rsvp-section {
@@ -965,43 +969,23 @@ body.gallery-open {
     height: 350px;
   }
 
+
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 190px;
-    gap: 10px;
-  }
-
-  .gallery-item:nth-child(1),
-  .gallery-item:nth-child(6) {
-    grid-row: span 2;
-  }
-
-  .gallery-item::after {
-    display: none;
+    gap: 12px;
+    margin-top: 45px;
   }
 
   .gallery-lightbox {
-    padding: 60px 15px;
-  }
-
-  .gallery-lightbox-content {
-    width: 92vw;
-    height: 75vh;
-  }
-
-  .gallery-lightbox-prev,
-  .gallery-lightbox-next {
-    width: 42px;
-    height: 55px;
-    font-size: 27px;
+    padding: 30px 55px;
   }
 
   .gallery-lightbox-prev {
-    left: 5px;
+    left: 2px;
   }
 
   .gallery-lightbox-next {
-    right: 5px;
+    right: 2px;
   }
 
   .details-grid {
@@ -1084,19 +1068,25 @@ body.gallery-open {
     height: 55px;
   }
 
-  .gallery-grid {
-    grid-auto-rows: 150px;
+
+  .gallery-lightbox {
+    padding: 25px 45px;
+  }
+
+  .gallery-lightbox-content img {
+    max-height: 75vh;
   }
 
   .gallery-lightbox-close {
     top: 15px;
-    right: 18px;
-    font-size: 36px;
+    right: 15px;
+    font-size: 34px;
   }
 
   .gallery-lightbox-prev,
   .gallery-lightbox-next {
-    font-size: 23px;
+    font-size: 38px;
+    padding: 10px;
   }
 
   .photo-placeholder {
