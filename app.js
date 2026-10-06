@@ -1,5 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+
+    /* =========================================================
+     WEDDING LOADING SCREEN
+     ========================================================= */
+
+  const weddingLoader =
+    document.getElementById("weddingLoader");
+
+  if (weddingLoader) {
+
+    const minimumLoaderTime = 3800;
+    const loaderStartTime = Date.now();
+
+    function hideWeddingLoader() {
+
+      const elapsed =
+        Date.now() - loaderStartTime;
+
+      const remaining =
+        Math.max(0, minimumLoaderTime - elapsed);
+
+      setTimeout(() => {
+
+        weddingLoader.classList.add("loader-hidden");
+
+        setTimeout(() => {
+          weddingLoader.remove();
+        }, 1100);
+
+      }, remaining);
+    }
+
+    if (document.readyState === "complete") {
+
+      hideWeddingLoader();
+
+    } else {
+
+      window.addEventListener(
+        "load",
+        hideWeddingLoader,
+        { once: true }
+      );
+
+    }
+  }
+
   /* =========================================================
      RSVP GOOGLE APPS SCRIPT ENDPOINT
      ========================================================= */
