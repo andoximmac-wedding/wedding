@@ -1355,3 +1355,418 @@ body.gallery-lightbox-open {
   }
 
 }
+
+
+
+/* =========================================================
+   WEDDING LOADING SCREEN
+   PAPER AIRPLANE + HEART TRAIL
+========================================================= */
+
+.wedding-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 248, 238, 1) 0%,
+      rgba(249, 241, 230, 1) 55%,
+      rgba(239, 229, 216, 1) 100%
+    );
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 1s ease,
+    visibility 1s ease;
+}
+
+.wedding-loader.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   FLIGHT CONTAINER
+========================================================= */
+
+.love-flight {
+  position: absolute;
+
+  width: 100px;
+  height: 80px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  animation: loveFlightPath 3.8s cubic-bezier(.45,.05,.55,.95) forwards;
+}
+
+
+/* =========================================================
+   PAPER AIRPLANE
+========================================================= */
+
+.paper-airplane {
+  position: absolute;
+
+  width: 54px;
+  height: 42px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-12deg);
+
+  z-index: 5;
+
+  filter:
+    drop-shadow(0 4px 6px rgba(142, 108, 62, 0.15));
+}
+
+
+/* Main airplane body */
+
+.plane-body {
+  position: absolute;
+
+  left: 4px;
+  top: 12px;
+
+  width: 0;
+  height: 0;
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 48px solid #c8a66b;
+
+  transform: rotate(-5deg);
+}
+
+
+/* Upper wing */
+
+.plane-wing-top {
+  position: absolute;
+
+  left: 4px;
+  top: 12px;
+
+  width: 0;
+  height: 0;
+
+  border-top: 0 solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 38px solid #e2c995;
+
+  transform: rotate(-15deg);
+}
+
+
+/* Lower wing */
+
+.plane-wing-bottom {
+  position: absolute;
+
+  left: 5px;
+  top: 22px;
+
+  width: 0;
+  height: 0;
+
+  border-top: 11px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 38px solid #b9965b;
+
+  transform: rotate(10deg);
+}
+
+
+/* =========================================================
+   HEART TRAIL
+========================================================= */
+
+.heart-trail {
+  position: absolute;
+
+  left: -20px;
+  top: 50%;
+
+  width: 80px;
+  height: 70px;
+
+  transform: translateY(-50%);
+
+  pointer-events: none;
+}
+
+
+.heart {
+  position: absolute;
+
+  display: block;
+
+  color: #c7a56d;
+
+  line-height: 1;
+
+  opacity: 0;
+
+  filter:
+    drop-shadow(0 2px 4px rgba(160, 120, 60, 0.15));
+
+  animation: heartTrail 2.2s ease-out infinite;
+}
+
+
+/* Individual hearts */
+
+.heart-1 {
+  left: 8px;
+  top: 30px;
+
+  font-size: 18px;
+
+  animation-delay: 0s;
+}
+
+.heart-2 {
+  left: 25px;
+  top: 16px;
+
+  font-size: 13px;
+
+  animation-delay: .25s;
+}
+
+.heart-3 {
+  left: 34px;
+  top: 42px;
+
+  font-size: 10px;
+
+  animation-delay: .5s;
+}
+
+.heart-4 {
+  left: 48px;
+  top: 23px;
+
+  font-size: 15px;
+
+  animation-delay: .75s;
+}
+
+.heart-5 {
+  left: 60px;
+  top: 38px;
+
+  font-size: 9px;
+
+  animation-delay: 1s;
+}
+
+
+/* =========================================================
+   AIRPLANE FLIGHT
+   DIFFERENT DIRECTIONS
+========================================================= */
+
+@keyframes loveFlightPath {
+
+  0% {
+    left: 18%;
+    top: 72%;
+
+    transform:
+      translate(-50%, -50%)
+      rotate(-32deg);
+  }
+
+  18% {
+    left: 34%;
+    top: 48%;
+
+    transform:
+      translate(-50%, -50%)
+      rotate(-12deg);
+  }
+
+  35% {
+    left: 62%;
+    top: 25%;
+
+    transform:
+      translate(-50%, -50%)
+      rotate(-35deg);
+  }
+
+  52% {
+    left: 83%;
+    top: 47%;
+
+    transform:
+      translate(-50%, -50%)
+      rotate(35deg);
+  }
+
+  70% {
+    left: 64%;
+    top: 76%;
+
+    transform:
+      translate(-50%, -50%)
+      rotate(145deg);
+  }
+
+  86% {
+    left: 35%;
+    top: 58%;
+
+    transform:
+      translate(-50%, -50%)
+      rotate(165deg);
+  }
+
+  100% {
+    left: 50%;
+    top: 50%;
+
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg);
+  }
+}
+
+
+/* =========================================================
+   HEART ANIMATION
+========================================================= */
+
+@keyframes heartTrail {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(15px, 0)
+      scale(.45);
+  }
+
+  20% {
+    opacity: .9;
+  }
+
+  65% {
+    opacity: .65;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(-35px, -18px)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .love-flight {
+    animation-duration: 3.5s;
+  }
+
+  .paper-airplane {
+    transform:
+      translate(-50%, -50%)
+      scale(.85)
+      rotate(-12deg);
+  }
+
+  @keyframes loveFlightPath {
+
+    0% {
+      left: 15%;
+      top: 72%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(-32deg);
+    }
+
+    20% {
+      left: 38%;
+      top: 48%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(-10deg);
+    }
+
+    40% {
+      left: 78%;
+      top: 28%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(-35deg);
+    }
+
+    60% {
+      left: 82%;
+      top: 70%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(70deg);
+    }
+
+    78% {
+      left: 40%;
+      top: 58%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(160deg);
+    }
+
+    100% {
+      left: 50%;
+      top: 50%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(0deg);
+    }
+  }
+}
+
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .love-flight,
+  .heart {
+    animation: none;
+  }
+
+}
