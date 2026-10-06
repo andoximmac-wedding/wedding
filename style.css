@@ -220,6 +220,59 @@ section h2 {
   padding: 70px 20px;
 }
 
+/* =========================================================
+   WEDDING LOGO - HERO ANIMATION
+========================================================= */
+
+.wedding-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 18px;
+  animation:
+    weddingLogoEntrance 1.8s ease-out both,
+    weddingLogoFloat 5s ease-in-out 2s infinite;
+}
+
+.wedding-logo img {
+  display: block;
+  width: clamp(180px, 25vw, 300px);
+  height: auto;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 215, 130, 0.20));
+}
+
+/* Elegant entrance */
+@keyframes weddingLogoEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(25px) scale(0.94);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.01);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Very subtle floating effect */
+@keyframes weddingLogoFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
 .hero-small-text {
   font-size: 11px;
   letter-spacing: 4px;
@@ -1025,7 +1078,13 @@ body.gallery-lightbox-open {
 
 }
 
+.wedding-logo {
+  margin-bottom: 15px;
+}
 
+.wedding-logo img {
+  width: 190px;
+}
 /* =========================================================
    SMALL PHONES
 ========================================================= */
