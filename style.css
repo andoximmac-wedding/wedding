@@ -242,8 +242,12 @@ section h2 {
   width: clamp(180px, 25vw, 300px);
   height: auto;
   object-fit: contain;
+
   filter:
     drop-shadow(0 0 8px rgba(255, 215, 130, 0.20));
+
+  animation:
+    weddingLogoGlow 4s ease-in-out 2s infinite;
 }
 
 /* Elegant entrance */
@@ -273,6 +277,19 @@ section h2 {
 
   50% {
     transform: translateY(-7px);
+  }
+}
+
+@keyframes weddingLogoGlow {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 8px rgba(255, 215, 130, 0.20));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 18px rgba(255, 215, 130, 0.42));
   }
 }
 
