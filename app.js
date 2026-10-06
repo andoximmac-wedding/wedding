@@ -20,7 +20,7 @@ if (weddingLoader) {
    * Give the magical name animation enough time
    * to finish before revealing the homepage.
    */
-  const minimumLoaderTime = 4400;
+  const minimumLoaderTime = 5200;
 
   function hideWeddingLoader() {
 
