@@ -5,48 +5,64 @@ document.addEventListener("DOMContentLoaded", () => {
      WEDDING LOADING SCREEN
      ========================================================= */
 
-  const weddingLoader =
-    document.getElementById("weddingLoader");
+  /* =========================================================
+   FAIRY-TALE WEDDING LOADING SCREEN
+   ========================================================= */
 
-  if (weddingLoader) {
+const weddingLoader =
+  document.getElementById("weddingLoader");
 
-    const minimumLoaderTime = 3800;
-    const loaderStartTime = Date.now();
+if (weddingLoader) {
 
-    function hideWeddingLoader() {
+  const loaderStartTime = Date.now();
 
-      const elapsed =
-        Date.now() - loaderStartTime;
+  /*
+   * Give the magical name animation enough time
+   * to finish before revealing the homepage.
+   */
+  const minimumLoaderTime = 4400;
 
-      const remaining =
-        Math.max(0, minimumLoaderTime - elapsed);
+  function hideWeddingLoader() {
+
+    const elapsed =
+      Date.now() - loaderStartTime;
+
+    const remaining =
+      Math.max(
+        0,
+        minimumLoaderTime - elapsed
+      );
+
+    setTimeout(() => {
+
+      weddingLoader.classList.add(
+        "loader-hidden"
+      );
 
       setTimeout(() => {
 
-        weddingLoader.classList.add("loader-hidden");
+        weddingLoader.remove();
 
-        setTimeout(() => {
-          weddingLoader.remove();
-        }, 1100);
+      }, 1500);
 
-      }, remaining);
-    }
-
-    if (document.readyState === "complete") {
-
-      hideWeddingLoader();
-
-    } else {
-
-      window.addEventListener(
-        "load",
-        hideWeddingLoader,
-        { once: true }
-      );
-
-    }
+    }, remaining);
   }
 
+
+  if (document.readyState === "complete") {
+
+    hideWeddingLoader();
+
+  } else {
+
+    window.addEventListener(
+      "load",
+      hideWeddingLoader,
+      { once: true }
+    );
+
+  }
+}
   /* =========================================================
      RSVP GOOGLE APPS SCRIPT ENDPOINT
      ========================================================= */
