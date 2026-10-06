@@ -63,6 +63,106 @@ if (weddingLoader) {
 
   }
 }
+
+    // =========================================================
+// WEDDING MUSIC
+// Starts after the loading screen.
+// Falls back to a "Tap to play" button if autoplay is blocked.
+// =========================================================
+
+const weddingMusic =
+  document.getElementById("weddingMusic");
+
+const musicToggle =
+  document.getElementById("musicToggle");
+
+if (weddingMusic && musicToggle) {
+
+  function showMusicButton() {
+    musicToggle.classList.add("show");
+  }
+
+  function hideMusicButton() {
+    musicToggle.classList.remove("show");
+  }
+
+  function updateMusicButton() {
+
+    if (!weddingMusic.paused) {
+      musicToggle.classList.add("playing");
+      musicToggle.querySelector("span").textContent =
+        "Music playing";
+    } else {
+      musicToggle.classList.remove("playing");
+      musicToggle.querySelector("span").textContent =
+        "Tap to play";
+    }
+  }
+
+  async function startWeddingMusic() {
+
+    try {
+
+      await weddingMusic.play();
+
+      updateMusicButton();
+      hideMusicButton();
+
+    } catch (error) {
+
+      // Browser blocked autoplay.
+      showMusicButton();
+      updateMusicButton();
+
+    }
+  }
+
+  musicToggle.addEventListener("click", async () => {
+
+    if (weddingMusic.paused) {
+
+      try {
+
+        await weddingMusic.play();
+
+      } catch (error) {
+
+        console.log(
+          "Wedding music could not be started.",
+          error
+        );
+
+      }
+
+    } else {
+
+      weddingMusic.pause();
+
+    }
+
+    updateMusicButton();
+  });
+
+  weddingMusic.addEventListener(
+    "play",
+    updateMusicButton
+  );
+
+  weddingMusic.addEventListener(
+    "pause",
+    updateMusicButton
+  );
+
+  /*
+   * Wait until the wedding loading screen has finished.
+   * Your existing loader uses 5200ms.
+   */
+  setTimeout(() => {
+
+    startWeddingMusic();
+
+  }, 5400);
+}
   /* =========================================================
      RSVP GOOGLE APPS SCRIPT ENDPOINT
      ========================================================= */
