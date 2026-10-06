@@ -1418,11 +1418,15 @@ body.gallery-lightbox-open {
    PAPER AIRPLANE
 ========================================================= */
 
+/* =========================================================
+   REAL FOLDED PAPER AIRPLANE
+========================================================= */
+
 .paper-airplane {
   position: absolute;
 
-  width: 54px;
-  height: 42px;
+  width: 78px;
+  height: 60px;
 
   left: 50%;
   top: 50%;
@@ -1434,65 +1438,56 @@ body.gallery-lightbox-open {
   z-index: 5;
 
   filter:
-    drop-shadow(0 4px 6px rgba(142, 108, 62, 0.15));
+    drop-shadow(0 5px 7px rgba(130, 95, 50, 0.16));
+}
+
+.paper-airplane svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
 }
 
 
-/* Main airplane body */
+/* Main paper */
 
-.plane-body {
-  position: absolute;
-
-  left: 4px;
-  top: 12px;
-
-  width: 0;
-  height: 0;
-
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 48px solid #c8a66b;
-
-  transform: rotate(-5deg);
+.paper-main {
+  fill: #f8f1e6;
+  stroke: #c6a36b;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
 }
 
 
-/* Upper wing */
+/* Upper folded part */
 
-.plane-wing-top {
-  position: absolute;
-
-  left: 4px;
-  top: 12px;
-
-  width: 0;
-  height: 0;
-
-  border-top: 0 solid transparent;
-  border-bottom: 13px solid transparent;
-  border-left: 38px solid #e2c995;
-
-  transform: rotate(-15deg);
+.paper-fold-top {
+  fill: #fffaf2;
+  stroke: #d2b47f;
+  stroke-width: 1;
+  stroke-linejoin: round;
 }
 
 
-/* Lower wing */
+/* Lower folded part */
 
-.plane-wing-bottom {
-  position: absolute;
-
-  left: 5px;
-  top: 22px;
-
-  width: 0;
-  height: 0;
-
-  border-top: 11px solid transparent;
-  border-bottom: 0 solid transparent;
-  border-left: 38px solid #b9965b;
-
-  transform: rotate(10deg);
+.paper-fold-bottom {
+  fill: #dfc79f;
+  stroke: #b9955b;
+  stroke-width: 1;
+  stroke-linejoin: round;
 }
+
+
+/* Fold line */
+
+.paper-fold-line {
+  fill: none;
+  stroke: #b9955b;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
 
 
 /* =========================================================
