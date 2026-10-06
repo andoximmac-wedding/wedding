@@ -217,13 +217,13 @@ navigationLinks.forEach(link => {
     document.getElementById("galleryLightboxCaption");
 
   const galleryClose =
-    document.getElementById("galleryClose");
+  document.getElementById("galleryLightboxClose");
 
-  const galleryPrev =
-    document.getElementById("galleryPrev");
+const galleryPrev =
+  document.getElementById("galleryLightboxPrev");
 
-  const galleryNext =
-    document.getElementById("galleryNext");
+const galleryNext =
+  document.getElementById("galleryLightboxNext");
 
 
   let currentGalleryIndex = 0;
