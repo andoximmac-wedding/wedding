@@ -186,16 +186,19 @@ section h2 {
   text-align: center;
 
   background:
-    linear-gradient(
-      rgba(53, 45, 39, 0.38),
-      rgba(53, 45, 39, 0.38)
-    ),
-    linear-gradient(
-      135deg,
-      #9d9085 0%,
-      #c8beb5 45%,
-      #8d8177 100%
-    );
+  radial-gradient(
+    circle at 50% 38%,
+    rgba(255, 236, 202, 0.22) 0%,
+    rgba(255, 236, 202, 0.08) 25%,
+    transparent 55%
+  ),
+  linear-gradient(
+    135deg,
+    #8f8278 0%,
+    #b5a79c 35%,
+    #c9bdb2 55%,
+    #91847a 100%
+  );
 
   color: white;
   overflow: hidden;
