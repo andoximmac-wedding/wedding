@@ -1357,30 +1357,27 @@ body.gallery-lightbox-open {
 }
 
 
-
 /* =========================================================
-   WEDDING LOADING SCREEN
-   PAPER AIRPLANE + HEART TRAIL
-========================================================= */
-
-/* =========================================================
-   FAIRY-TALE WEDDING LOADING SCREEN
+   FAIRY-TALE BRIDE + GROOM LOADING SCREEN
 ========================================================= */
 
 .wedding-loader {
   position: fixed;
   inset: 0;
+
   z-index: 99999;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  overflow: hidden;
+
   background:
     radial-gradient(
       circle at center,
       #fffaf3 0%,
-      #f8efe3 58%,
+      #f8efe3 55%,
       #eee1d0 100%
     );
 
@@ -1388,8 +1385,8 @@ body.gallery-lightbox-open {
   visibility: visible;
 
   transition:
-    opacity 1.4s ease,
-    visibility 1.4s ease;
+    opacity 1.5s ease,
+    visibility 1.5s ease;
 }
 
 .wedding-loader.loader-hidden {
@@ -1400,20 +1397,254 @@ body.gallery-lightbox-open {
 
 
 /* =========================================================
-   NAME AREA
+   MAIN LOADING SCENE
 ========================================================= */
 
-.fairy-name {
+.wedding-loading-scene {
   position: relative;
+
+  width: min(900px, 100vw);
+  height: 520px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  width: 90%;
-  max-width: 900px;
+
+/* =========================================================
+   CARTOON CHARACTERS
+========================================================= */
+
+.loading-character {
+  position: absolute;
+
+  bottom: 155px;
+
+  width: 180px;
+  height: 260px;
+
+  z-index: 4;
+
+  will-change: transform;
+}
+
+
+/* Groom starts from LEFT */
+
+.loading-groom {
+  left: -30px;
+
+  animation:
+    groomApproach 4.4s
+    cubic-bezier(.25,.75,.25,1)
+    .2s
+    forwards;
+}
+
+
+/* Bride starts from RIGHT */
+
+.loading-bride {
+  right: -30px;
+
+  width: 180px;
+  height: 280px;
+
+  animation:
+    brideApproach 4.4s
+    cubic-bezier(.25,.75,.25,1)
+    .2s
+    forwards;
+}
+
+
+.character-svg {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  filter:
+    drop-shadow(
+      0 8px 12px
+      rgba(120, 86, 42, .15)
+    );
+}
+
+
+/* =========================================================
+   GROOM MOVEMENT
+========================================================= */
+
+@keyframes groomApproach {
+
+  0% {
+    transform:
+      translateX(-250px)
+      translateY(25px)
+      rotate(-4deg);
+  }
+
+  25% {
+    transform:
+      translateX(-155px)
+      translateY(0)
+      rotate(2deg);
+  }
+
+  50% {
+    transform:
+      translateX(-70px)
+      translateY(-3px)
+      rotate(-1deg);
+  }
+
+  72% {
+    transform:
+      translateX(0)
+      translateY(0)
+      rotate(1deg);
+  }
+
+  100% {
+    transform:
+      translateX(70px)
+      translateY(0)
+      rotate(0deg);
+  }
+}
+
+
+/* =========================================================
+   BRIDE MOVEMENT
+========================================================= */
+
+@keyframes brideApproach {
+
+  0% {
+    transform:
+      translateX(250px)
+      translateY(25px)
+      rotate(4deg);
+  }
+
+  25% {
+    transform:
+      translateX(155px)
+      translateY(0)
+      rotate(-2deg);
+  }
+
+  50% {
+    transform:
+      translateX(70px)
+      translateY(-3px)
+      rotate(1deg);
+  }
+
+  72% {
+    transform:
+      translateX(0)
+      translateY(0)
+      rotate(-1deg);
+  }
+
+  100% {
+    transform:
+      translateX(-70px)
+      translateY(0)
+      rotate(0deg);
+  }
+}
+
+
+/* =========================================================
+   HEART BETWEEN THEM
+========================================================= */
+
+.loading-heart {
+  position: absolute;
+
+  left: 50%;
+  bottom: 335px;
+
+  z-index: 7;
+
+  transform:
+    translateX(-50%)
+    scale(0);
+
+  color: #c59b59;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 28px;
+
+  text-shadow:
+    0 0 8px rgba(218, 176, 93, .6),
+    0 0 20px rgba(218, 176, 93, .35);
+
+  animation:
+    centerHeart 1s
+    ease-out
+    3.55s
+    forwards;
+}
+
+
+@keyframes centerHeart {
+
+  0% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      translateY(15px)
+      scale(0);
+  }
+
+  45% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1.25);
+  }
+
+  70% {
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.fairy-name {
+  position: absolute;
+
+  left: 50%;
+  bottom: 75px;
+
+  width: 95%;
+
+  transform: translateX(-50%);
 
   text-align: center;
+
+  z-index: 8;
 }
 
 
@@ -1421,9 +1652,11 @@ body.gallery-lightbox-open {
   position: relative;
 
   display: inline-flex;
+
   align-items: baseline;
   justify-content: center;
-  gap: 18px;
+
+  gap: 16px;
 
   color: #9f7b42;
 
@@ -1432,7 +1665,8 @@ body.gallery-lightbox-open {
     Georgia,
     serif;
 
-  font-size: clamp(42px, 7vw, 86px);
+  font-size:
+    clamp(38px, 6vw, 76px);
 
   font-weight: 500;
 
@@ -1441,46 +1675,54 @@ body.gallery-lightbox-open {
   white-space: nowrap;
 
   text-shadow:
-    0 1px 0 rgba(255,255,255,.8),
-    0 4px 20px rgba(164, 125, 66, .12);
+    0 1px 0 rgba(255,255,255,.9),
+    0 5px 22px rgba(164,125,66,.14);
 }
 
 
 /* =========================================================
-   NAME REVEAL
+   FAIRY-TALE NAME REVEAL
 ========================================================= */
 
 #loaderName,
 #loaderAmpersand,
 #loaderBride {
+
   display: inline-block;
 
   opacity: 0;
 
-  clip-path: inset(0 100% 0 0);
+  clip-path:
+    inset(0 100% 0 0);
 
   animation:
-    fairyWrite 1.5s cubic-bezier(.65,0,.35,1) forwards;
+    fairyWrite
+    1.35s
+    cubic-bezier(.65,0,.35,1)
+    forwards;
 }
 
 
 #loaderName {
-  animation-delay: .35s;
+  animation-delay: 1.0s;
 }
 
 
 #loaderAmpersand {
-  opacity: 0;
 
   clip-path: none;
 
   animation:
-    fairyAmpersand .8s ease-out 1.75s forwards;
+    fairyAmpersand
+    .8s
+    ease-out
+    2.05s
+    forwards;
 }
 
 
 #loaderBride {
-  animation-delay: 2s;
+  animation-delay: 2.25s;
 }
 
 
@@ -1488,16 +1730,20 @@ body.gallery-lightbox-open {
 
   0% {
     opacity: 0;
-    clip-path: inset(0 100% 0 0);
+
+    clip-path:
+      inset(0 100% 0 0);
   }
 
-  15% {
+  12% {
     opacity: 1;
   }
 
   100% {
     opacity: 1;
-    clip-path: inset(0 0 0 0);
+
+    clip-path:
+      inset(0 0 0 0);
   }
 }
 
@@ -1506,34 +1752,53 @@ body.gallery-lightbox-open {
 
   0% {
     opacity: 0;
-    transform: scale(.65) rotate(-12deg);
+
+    transform:
+      scale(.55)
+      rotate(-12deg);
+
     filter:
-      blur(4px)
+      blur(5px)
       drop-shadow(0 0 0 transparent);
   }
 
   55% {
     opacity: 1;
-    transform: scale(1.12) rotate(3deg);
+
+    transform:
+      scale(1.15)
+      rotate(3deg);
+
     filter:
       blur(0)
-      drop-shadow(0 0 16px rgba(218, 176, 93, .7));
+      drop-shadow(
+        0 0 18px
+        rgba(218,176,93,.75)
+      );
   }
 
   100% {
     opacity: 1;
-    transform: scale(1) rotate(0);
+
+    transform:
+      scale(1)
+      rotate(0);
+
     filter:
-      drop-shadow(0 0 5px rgba(218, 176, 93, .25));
+      drop-shadow(
+        0 0 6px
+        rgba(218,176,93,.25)
+      );
   }
 }
 
 
 /* =========================================================
-   MAGICAL GOLDEN SPARK
+   GOLDEN MAGIC SPARK
 ========================================================= */
 
 #magicSpark {
+
   position: absolute;
 
   width: 9px;
@@ -1545,20 +1810,25 @@ body.gallery-lightbox-open {
 
   box-shadow:
     0 0 5px #f8d98d,
-    0 0 12px rgba(239, 191, 76, .9),
-    0 0 28px rgba(239, 191, 76, .55);
+    0 0 13px rgba(239,191,76,.95),
+    0 0 30px rgba(239,191,76,.55);
 
   opacity: 0;
 
   pointer-events: none;
 
   animation:
-    magicSparkMove 3.7s ease-in-out .25s forwards;
+    magicSparkMove
+    4.1s
+    ease-in-out
+    .7s
+    forwards;
 }
 
 
 #magicSpark::before,
 #magicSpark::after {
+
   content: "";
 
   position: absolute;
@@ -1566,18 +1836,21 @@ body.gallery-lightbox-open {
   left: 50%;
   top: 50%;
 
-  width: 22px;
+  width: 25px;
   height: 2px;
 
-  background: rgba(246, 210, 133, .9);
+  background:
+    rgba(246,210,133,.95);
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%,-50%);
 }
 
 
 #magicSpark::after {
+
   transform:
-    translate(-50%, -50%)
+    translate(-50%,-50%)
     rotate(90deg);
 }
 
@@ -1587,69 +1860,69 @@ body.gallery-lightbox-open {
   0% {
     opacity: 0;
 
-    left: 2%;
+    left: 0%;
     top: 65%;
 
-    transform: scale(.4);
+    transform: scale(.3);
   }
 
   8% {
     opacity: 1;
   }
 
-  28% {
-    left: 28%;
+  25% {
+    left: 25%;
     top: 50%;
-
-    transform: scale(1);
   }
 
-  48% {
+  45% {
     left: 48%;
     top: 50%;
 
-    transform: scale(1.25);
+    transform: scale(1.2);
   }
 
   68% {
-    left: 69%;
+    left: 70%;
     top: 50%;
 
     transform: scale(1);
   }
 
-  88% {
-    left: 96%;
-    top: 35%;
+  90% {
+    left: 97%;
+    top: 30%;
 
-    transform: scale(.8);
+    transform: scale(.7);
   }
 
   100% {
     opacity: 0;
 
-    left: 102%;
-    top: 25%;
+    left: 104%;
+    top: 20%;
 
-    transform: scale(.3);
+    transform: scale(.2);
   }
 }
 
 
 /* =========================================================
-   FLOATING SPARKLES
+   FLOATING GOLD SPARKLES
 ========================================================= */
 
 .sparkle-field {
+
   position: absolute;
 
-  inset: -80px;
+  inset: -90px;
 
   pointer-events: none;
 }
 
 
 .sparkle-field span {
+
   position: absolute;
 
   color: #c9a15b;
@@ -1657,87 +1930,67 @@ body.gallery-lightbox-open {
   opacity: 0;
 
   animation:
-    sparkleFloat 2.8s ease-in-out infinite;
+    sparkleFloat
+    2.8s
+    ease-in-out
+    infinite;
 }
 
 
 .sparkle-field span:nth-child(1) {
   left: 15%;
   top: 30%;
-
   font-size: 18px;
-
-  animation-delay: 1.5s;
+  animation-delay: 1.8s;
 }
 
-
 .sparkle-field span:nth-child(2) {
-  left: 25%;
-  top: 65%;
-
+  left: 27%;
+  top: 70%;
   font-size: 11px;
+  animation-delay: 2.4s;
+}
 
+.sparkle-field span:nth-child(3) {
+  left: 41%;
+  top: 20%;
+  font-size: 14px;
+  animation-delay: 2.8s;
+}
+
+.sparkle-field span:nth-child(4) {
+  left: 55%;
+  top: 72%;
+  font-size: 10px;
   animation-delay: 2.1s;
 }
 
-
-.sparkle-field span:nth-child(3) {
-  left: 40%;
-  top: 20%;
-
-  font-size: 14px;
-
+.sparkle-field span:nth-child(5) {
+  left: 68%;
+  top: 24%;
+  font-size: 16px;
   animation-delay: 2.7s;
 }
 
-
-.sparkle-field span:nth-child(4) {
-  left: 53%;
-  top: 72%;
-
-  font-size: 10px;
-
-  animation-delay: 1.9s;
-}
-
-
-.sparkle-field span:nth-child(5) {
-  left: 67%;
-  top: 25%;
-
-  font-size: 16px;
-
-  animation-delay: 2.5s;
-}
-
-
 .sparkle-field span:nth-child(6) {
-  left: 77%;
-  top: 65%;
-
+  left: 78%;
+  top: 66%;
   font-size: 13px;
-
-  animation-delay: 3s;
+  animation-delay: 3.1s;
 }
-
 
 .sparkle-field span:nth-child(7) {
-  left: 88%;
+  left: 89%;
   top: 40%;
-
   font-size: 9px;
-
-  animation-delay: 2.2s;
+  animation-delay: 2.3s;
 }
 
-
 .sparkle-field span:nth-child(8) {
-  left: 5%;
-  top: 55%;
-
+  left: 7%;
+  top: 53%;
   font-size: 14px;
-
-  animation-delay: 3.2s;
+  animation-delay: 3.3s;
 }
 
 
@@ -1745,21 +1998,31 @@ body.gallery-lightbox-open {
 
   0% {
     opacity: 0;
-    transform: scale(.3) rotate(0deg);
+
+    transform:
+      scale(.3)
+      rotate(0deg);
   }
 
   35% {
     opacity: .9;
-    transform: scale(1.15) rotate(45deg);
+
+    transform:
+      scale(1.15)
+      rotate(45deg);
   }
 
   70% {
     opacity: .55;
-    transform: scale(.8) rotate(90deg);
+
+    transform:
+      scale(.8)
+      rotate(90deg);
   }
 
   100% {
     opacity: 0;
+
     transform:
       translateY(-15px)
       scale(.2)
@@ -1772,20 +2035,46 @@ body.gallery-lightbox-open {
    MOBILE
 ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+
+  .wedding-loading-scene {
+    height: 470px;
+  }
+
+  .loading-character {
+    width: 135px;
+    height: 195px;
+
+    bottom: 170px;
+  }
+
+  .loading-bride {
+    width: 135px;
+    height: 210px;
+  }
+
+  .loading-groom {
+    left: -20px;
+  }
+
+  .loading-bride {
+    right: -20px;
+  }
+
+  .fairy-name {
+    bottom: 90px;
+  }
 
   .fairy-name-line {
-    gap: 9px;
+    gap: 8px;
 
-    font-size: clamp(34px, 9vw, 54px);
-
-    letter-spacing: .5px;
+    font-size:
+      clamp(31px, 8.5vw, 50px);
   }
 
-  .sparkle-field {
-    inset: -40px;
+  .loading-heart {
+    bottom: 335px;
   }
-
 }
 
 
@@ -1795,12 +2084,28 @@ body.gallery-lightbox-open {
 
 @media (prefers-reduced-motion: reduce) {
 
+  .loading-character,
+  .loading-heart,
   #loaderName,
   #loaderAmpersand,
   #loaderBride,
   #magicSpark,
   .sparkle-field span {
-    animation: none;
+
+    animation: none !important;
+  }
+
+  .loading-groom {
+    transform: translateX(70px);
+  }
+
+  .loading-bride {
+    transform: translateX(-70px);
+  }
+
+  .loading-heart {
+    opacity: 1;
+    transform: translateX(-50%);
   }
 
   #loaderName,
@@ -1809,5 +2114,4 @@ body.gallery-lightbox-open {
     opacity: 1;
     clip-path: none;
   }
-
 }
