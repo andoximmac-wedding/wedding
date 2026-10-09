@@ -2185,3 +2185,39 @@ body.gallery-lightbox-open {
     font-size: 13px;
   }
 }
+
+/* =========================================================
+   GIFT SECTION
+========================================================= */
+.gift-section { background: #e8e0d8; padding: 120px 0; text-align: center; }
+.gift-intro, .faq-intro { max-width: 700px; margin: 22px auto 0; color: #766960; font-size: 14px; text-align: center; }
+.gift-card { max-width: 650px; margin: 50px auto 0; padding: 45px 35px; background: rgba(255,255,255,0.42); border: 1px solid rgba(105,85,70,0.20); text-align: center; }
+.gift-icon { color: #9a8370; font-family: "Cormorant Garamond", serif; font-size: 42px; line-height: 1; margin-bottom: 12px; }
+.gift-card h3 { color: #493e36; font-family: "Cormorant Garamond", serif; font-size: 32px; font-weight: 500; margin-bottom: 12px; }
+.gift-card > p { max-width: 480px; margin: 0 auto; color: #655a52; font-size: 13px; }
+.gcash-qr-placeholder { width: min(250px, 100%); min-height: 250px; margin: 28px auto 18px; padding: 25px 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 1px dashed #b8a08e; background: #fffdf9; color: #806b5a; }
+.qr-placeholder-icon { font-family: Arial, sans-serif; font-size: 76px; line-height: 1; color: #a58b70; }
+.gcash-qr-placeholder > span:not(.qr-placeholder-icon) { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+.gcash-qr-placeholder small { font-size: 10px; color: #927d6d; }
+.gift-card .gift-scan-note { font-size: 11px; letter-spacing: 1px; color: #806b5a; }
+
+/* =========================================================
+   FAQ SECTION
+========================================================= */
+.faq-section { background: #f6f2ed; padding: 120px 0; }
+.faq-list { max-width: 850px; margin: 55px auto 0; border-top: 1px solid rgba(105,85,70,0.20); }
+.faq-item { border-bottom: 1px solid rgba(105,85,70,0.20); background: rgba(255,255,255,0.25); }
+.faq-item summary { position: relative; padding: 22px 55px 22px 22px; list-style: none; cursor: pointer; color: #493e36; font-family: "Cormorant Garamond", serif; font-size: 24px; line-height: 1.35; text-align: left; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; position: absolute; top: 50%; right: 22px; transform: translateY(-50%); color: #9a8370; font-family: "Montserrat", sans-serif; font-size: 22px; font-weight: 300; }
+.faq-item[open] summary::after { content: "−"; }
+.faq-answer { padding: 0 55px 22px 22px; color: #655a52; font-size: 13px; line-height: 1.9; text-align: left; }
+@media (max-width: 800px) {
+  .gift-section, .faq-section { padding: 80px 0; }
+  .gift-card { padding: 35px 22px; }
+  .faq-list { margin-top: 40px; }
+  .faq-item summary { padding: 18px 45px 18px 16px; font-size: 22px; }
+  .faq-item summary::after { right: 15px; }
+  .faq-answer { padding: 0 18px 20px 16px; }
+}
+
