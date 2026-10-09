@@ -2221,3 +2221,66 @@ body.gallery-lightbox-open {
   .faq-answer { padding: 0 18px 20px 16px; }
 }
 
+
+/* =========================================================
+   GROOM AND BRIDE GCASH QR CODES
+========================================================= */
+
+.gcash-accounts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 700px;
+  margin: 35px auto 0;
+}
+
+.gcash-account {
+  min-width: 0;
+  padding: 24px 18px;
+  background: #fffdf9;
+  border: 1px solid #d7c3ae;
+  text-align: center;
+}
+
+.gcash-account h3 {
+  margin: 0 0 8px;
+  color: #493e36;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+}
+
+.gcash-account p {
+  color: #766960;
+  font-size: 12px;
+}
+
+.gcash-qr-image {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 20px auto;
+  background: #fff;
+}
+
+.gcash-account .gift-scan-note {
+  margin-bottom: 0;
+  color: #806b5a;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .gcash-accounts {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .gcash-account {
+    padding: 22px 16px;
+  }
+
+  .gcash-qr-image {
+    max-width: 280px;
+  }
+}
