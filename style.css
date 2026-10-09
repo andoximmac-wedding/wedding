@@ -2284,3 +2284,40 @@ body.gallery-lightbox-open {
     max-width: 280px;
   }
 }
+
+
+
+/* =========================================================
+   OUR STORY - COUPLE PHOTO
+========================================================= */
+
+.story-photo {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 6px solid #fffaf4;
+  box-shadow: 0 12px 30px rgba(64, 55, 48, 0.14);
+  background: #f5f1ec;
+}
+
+.story-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Mobile layout */
+@media (max-width: 800px) {
+  .story-photo {
+    max-width: 480px;
+    margin: 0 auto 25px;
+  }
+
+  .story-image {
+    aspect-ratio: 4 / 5;
+  }
+}
+
