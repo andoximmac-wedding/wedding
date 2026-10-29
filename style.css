@@ -177,7 +177,9 @@ section h2 {
    HERO
 ========================================================= */
 
+
 .hero-section {
+  position: relative;
   min-height: 100vh;
   padding-top: 78px;
   display: flex;
@@ -186,19 +188,11 @@ section h2 {
   text-align: center;
 
   background:
-  radial-gradient(
-    circle at 50% 38%,
-    rgba(255, 236, 202, 0.22) 0%,
-    rgba(255, 236, 202, 0.08) 25%,
-    transparent 55%
-  ),
-  linear-gradient(
-    135deg,
-    #8f8278 0%,
-    #b5a79c 35%,
-    #c9bdb2 55%,
-    #91847a 100%
-  );
+    linear-gradient(
+      rgba(35, 27, 25, 0.48),
+      rgba(35, 27, 25, 0.48)
+    ),
+    url("images/home-background.jpg") center center / cover no-repeat;
 
   color: white;
   overflow: hidden;
