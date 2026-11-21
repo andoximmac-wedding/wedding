@@ -739,3 +739,239 @@ const galleryNext =
 
     
 });
+
+/* =========================================================
+   LIVE WEDDING MEMORIES — GALLERY CONNECTION
+========================================================= */
+
+(() => {
+
+  // ==========================================
+  // CONFIGURATION
+  // ==========================================
+
+  const MEMORIES_API_URL =
+    "PASTE_YOUR_ACTUAL_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE";
+
+  // ==========================================
+  // ELEMENTS
+  // ==========================================
+
+  const memoriesGrid = document.getElementById("weddingMemoriesGrid");
+  const memoriesTotal = document.getElementById("memoriesTotal");
+  const memoriesEmpty = document.getElementById("memoriesEmpty");
+  const refreshMemoriesBtn = document.getElementById("refreshMemories");
+
+  if (!memoriesGrid) return;
+
+  // ==========================================
+  // ESCAPE HTML
+  // ==========================================
+
+  function memoriesEscapeHTML(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+  // ==========================================
+  // FORMAT DATE
+  // ==========================================
+
+  function memoriesFormatDate(value) {
+
+    if (!value) return "";
+
+    const date = new Date(value);
+
+    if (isNaN(date.getTime())) {
+      return "";
+    }
+
+    return date.toLocaleDateString("en-PH", {
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    });
+
+  }
+
+  // ==========================================
+  // CREATE PHOTO CARD
+  // ==========================================
+
+  function memoriesCreateCard(photo) {
+
+    const imageUrl = memoriesEscapeHTML(photo.imageUrl);
+    const guestName = memoriesEscapeHTML(photo.guestName || "Wedding Guest");
+    const caption = memoriesEscapeHTML(photo.caption || "");
+    const date = memoriesEscapeHTML(memoriesFormatDate(photo.uploadDate));
+
+    return `
+      <article class="memory-card">
+
+        <div class="memory-photo-wrap">
+
+          <a
+            href="${imageUrl}"
+            target="_blank"
+            rel="noopener"
+              aria-label="View photo uploaded by ${guestName}"
+          >
+
+            <img
+              class="memory-photo"
+              src="${imageUrl}"
+              alt="Wedding memory shared by ${guestName}"
+              loading="lazy"
+            >
+
+          </a>
+
+        </div>
+
+        <div class="memory-card-content">
+
+          <div class="memory-uploader">
+            ♡ ${guestName}
+          </div>
+
+          ${caption ? `
+            <div class="memory-caption">
+              ${caption}
+            </div>
+          ` : ""}
+
+          ${date ? `
+            <div class="memory-date">
+              ${date}
+            </div>
+          ` : ""}
+
+        </div>
+
+      </article>
+    `;
+
+  }
+
+  // ==========================================
+  // LOAD GALLERY
+  // ==========================================
+
+  async function loadWeddingMemories() {
+
+    memoriesGrid.innerHTML = `
+      <div class="memories-message">
+        Loading our beautiful memories...
+      </div>
+    `;
+
+    memoriesEmpty.hidden = true;
+
+    if (refreshMemoriesBtn) {
+      refreshMemoriesBtn.disabled = true;
+      refreshMemoriesBtn.textContent = "Loading...";
+    }
+
+    try {
+
+      const response = await fetch(
+        MEMORIES_API_URL + "?action=gallery&_=" + Date.now()
+      );
+
+      if (!response.ok) {
+        throw new Error("Gallery API request failed.");
+      }
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message || "Unable to load gallery.");
+      }
+
+      const photos = Array.isArray(result.photos)
+        ? result.photos
+        : [];
+
+      memoriesGrid.innerHTML = "";
+
+      if (memoriesTotal) {
+        memoriesTotal.textContent =
+          photos.length +
+          (photos.length === 1
+            ? " beautiful memory"
+            : " beautiful memories");
+      }
+
+      if (photos.length === 0) {
+
+        memoriesEmpty.hidden = false;
+        memoriesGrid.innerHTML = "";
+
+        return;
+
+      }
+
+      memoriesEmpty.hidden = true;
+
+      photos.forEach(photo => {
+
+        memoriesGrid.insertAdjacentHTML(
+          "beforeend",
+          memoriesCreateCard(photo)
+        );
+
+      });
+
+    } catch (error) {
+
+      console.error("Wedding Memories Gallery Error:", error);
+
+      memoriesGrid.innerHTML = `
+        <div class="memories-message">
+          Our memories could not be loaded at this moment.
+          Please try refreshing the gallery.
+        </div>
+      `;
+
+      if (memoriesTotal) {
+        memoriesTotal.textContent = "Unable to load memories";
+      }
+
+    } finally {
+
+      if (refreshMemoriesBtn) {
+        refreshMemoriesBtn.disabled = false;
+        refreshMemoriesBtn.textContent = "↻ Refresh";
+      }
+
+    }
+
+  }
+
+  // ==========================================
+  // REFRESH BUTTON
+  // ==========================================
+
+  if (refreshMemoriesBtn) {
+
+    refreshMemoriesBtn.addEventListener(
+      "click",
+      loadWeddingMemories
+    );
+
+  }
+
+  // ==========================================
+  // INITIAL LOAD
+  // ==========================================
+
+  loadWeddingMemories();
+
+})();
