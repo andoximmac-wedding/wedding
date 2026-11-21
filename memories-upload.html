@@ -622,13 +622,28 @@ async function uploadOnePhoto(file, guestName, caption) {
 
   });
 
-  const result = await response.json();
+  const responseText = await response.text();
 
-  if (!result.success) {
-    throw new Error(result.message || "Upload failed.");
-  }
+console.log("UPLOAD RESPONSE STATUS:", response.status);
+console.log("UPLOAD RESPONSE URL:", response.url);
+console.log("UPLOAD RESPONSE:", responseText);
 
-  return result;
+let result;
+
+try {
+  result = JSON.parse(responseText);
+} catch (err) {
+  throw new Error(
+    "Google returned a non-JSON response. " +
+    "Response: " + responseText.substring(0, 300)
+  );
+}
+
+if (!result.success) {
+  throw new Error(result.message || "Upload failed.");
+}
+
+return result;
 
 }
 
