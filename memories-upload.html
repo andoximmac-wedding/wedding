@@ -726,9 +726,13 @@ uploadButton.addEventListener("click", async function () {
 
       } catch (err) {
 
-        failed.push(file.name);
+  console.error("PHOTO UPLOAD ERROR:", err);
 
-      }
+  failed.push(file.name);
+
+  console.error("Error details:", err.message);
+
+}
 
       const progress = Math.round(((i + 1) / total) * 100);
 
@@ -753,11 +757,11 @@ uploadButton.addEventListener("click", async function () {
     } else {
 
       showMessage(
-        completed + " photo(s) uploaded successfully. " +
-        failed.length + " photo(s) failed. " +
-        "You may try uploading the failed photos again.",
-        "error"
-      );
+  completed + " photo(s) uploaded successfully. " +
+  failed.length + " photo(s) failed. " +
+  "Please open your browser Console (F12) to check the exact error.",
+  "error"
+);
 
       // Retain only failed files for retry
 
