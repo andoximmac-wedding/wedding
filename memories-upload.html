@@ -379,7 +379,7 @@ textarea {
           </p>
 
           <p>
-            JPG, PNG or WEBP · Maximum 100MB per photo
+            JPG, PNG or WEBP · Maximum 20MB per photo
           </p>
 
         </label>
@@ -679,7 +679,7 @@ uploadButton.addEventListener("click", async function () {
     if (file.size > MAX_SIZE) {
 
       showMessage(
-        file.name + " exceeds the 100MB limit.",
+        file.name + " exceeds the 20MB limit.",
         "error"
       );
 
@@ -701,7 +701,10 @@ uploadButton.addEventListener("click", async function () {
   }
 
   if (
-    API_URL === "https://script.google.com/macros/s/AKfycbylezaH__z4EkA7r4Qh6HmVrXBT3joEvVnqxQSaul1gGUXtiYYhckIkiVF0fOTjWPeIng/exec"
+    !API_URL ||
+    API_URL.includes("PASTE_YOUR") ||
+    !API_URL.startsWith("https://script.google.com/macros/s/") ||
+    !API_URL.endsWith("/exec")
   ) {
 
     showMessage(
