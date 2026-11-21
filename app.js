@@ -751,7 +751,7 @@ const galleryNext =
   // ==========================================
 
   const MEMORIES_API_URL =
-    "PASTE_YOUR_ACTUAL_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE";
+    "https://script.google.com/macros/s/AKfycbylezaH__z4EkA7r4Qh6HmVrXBT3joEvVnqxQSaul1gGUXtiYYhckIkiVF0fOTjWPeIng/exec";
 
   // ==========================================
   // ELEMENTS
