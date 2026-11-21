@@ -2547,3 +2547,100 @@ body.gallery-lightbox-open {
   }
 
 }
+
+
+/* ==========================================
+   WEDDING MEMORIES — LOVE REACTIONS
+========================================== */
+
+.memory-reaction-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.memory-like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border: 1px solid #e9d8d0;
+  border-radius: 50px;
+  background: #fffaf7;
+  color: #8d6258;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.memory-like-button:hover {
+  transform: translateY(-2px);
+  background: #f8eae7;
+}
+
+.memory-like-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.memory-like-button .memory-heart {
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.memory-like-button:hover .memory-heart {
+  transform: scale(1.2);
+}
+
+.memory-like-button.liked {
+  background: #fbe8e8;
+  border-color: #e8b9bd;
+  color: #c45c70;
+}
+
+.memory-like-button.liked .memory-heart {
+  color: #d95775;
+  animation: memoryHeartPop 0.35s ease;
+}
+
+.memory-like-button.liked .memory-like-label {
+  font-weight: 600;
+}
+
+.memory-like-count {
+  color: #8b817a;
+  font-size: 12px;
+}
+
+@keyframes memoryHeartPop {
+
+  0% {
+    transform: scale(0.6);
+  }
+
+  50% {
+    transform: scale(1.35);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .memory-reaction-row {
+    gap: 8px;
+  }
+
+  .memory-like-button {
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+
+}
