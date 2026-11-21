@@ -805,61 +805,92 @@ const galleryNext =
   // CREATE PHOTO CARD
   // ==========================================
 
-  function memoriesCreateCard(photo) {
+// ==========================================
+// CREATE PHOTO CARD — GOOGLE DRIVE IMAGE FIX
+// ==========================================
 
-    const imageUrl = memoriesEscapeHTML(photo.imageUrl);
-    const guestName = memoriesEscapeHTML(photo.guestName || "Wedding Guest");
-    const caption = memoriesEscapeHTML(photo.caption || "");
-    const date = memoriesEscapeHTML(memoriesFormatDate(photo.uploadDate));
+function memoriesCreateCard(photo) {
 
-    return `
-      <article class="memory-card">
+  const originalUrl = String(photo.imageUrl || "");
 
-        <div class="memory-photo-wrap">
+  // Extract Google Drive file ID
+  let fileId = "";
 
-          <a
-            href="${imageUrl}"
-            target="_blank"
-            rel="noopener"
-              aria-label="View photo uploaded by ${guestName}"
-          >
-
-            <img
-              class="memory-photo"
-              src="${imageUrl}"
-              alt="Wedding memory shared by ${guestName}"
-              loading="lazy"
-            >
-
-          </a>
-
-        </div>
-
-        <div class="memory-card-content">
-
-          <div class="memory-uploader">
-            ♡ ${guestName}
-          </div>
-
-          ${caption ? `
-            <div class="memory-caption">
-              ${caption}
-            </div>
-          ` : ""}
-
-          ${date ? `
-            <div class="memory-date">
-              ${date}
-            </div>
-          ` : ""}
-
-        </div>
-
-      </article>
-    `;
-
+  try {
+    const parsedUrl = new URL(originalUrl);
+    fileId = parsedUrl.searchParams.get("id") || "";
+  } catch (error) {
+    fileId = "";
   }
 
+  // Use Google Drive thumbnail URL for gallery display
+  const imageUrl = fileId
+    ? `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1200`
+    : originalUrl;
+
+  const safeImageUrl = memoriesEscapeHTML(imageUrl);
+  const safeOriginalUrl = memoriesEscapeHTML(originalUrl);
+
+  const guestName = memoriesEscapeHTML(
+    photo.guestName || "Wedding Guest"
+  );
+
+  const caption = memoriesEscapeHTML(
+    photo.caption || ""
+  );
+
+  const date = memoriesEscapeHTML(
+    memoriesFormatDate(photo.uploadDate)
+  );
+
+  return `
+    <article class="memory-card">
+
+      <div class="memory-photo-wrap">
+
+        <a
+          href="${safeOriginalUrl}"
+          target="_blank"
+          rel="noopener"
+          aria-label="View photo uploaded by ${guestName}"
+        >
+
+          <img
+            class="memory-photo"
+            src="${safeImageUrl}"
+            alt="Wedding memory shared by ${guestName}"
+            loading="lazy"
+            onerror="this.onerror=null;this.src='${safeOriginalUrl}'"
+          >
+
+        </a>
+
+      </div>
+
+      <div class="memory-card-content">
+
+        <div class="memory-uploader">
+          ♡ ${guestName}
+        </div>
+
+        ${caption ? `
+          <div class="memory-caption">
+            ${caption}
+          </div>
+        ` : ""}
+
+        ${date ? `
+          <div class="memory-date">
+            ${date}
+          </div>
+        ` : ""}
+
+      </div>
+
+    </article>
+  `;
+
+}
   // ==========================================
   // LOAD GALLERY
   // ==========================================
