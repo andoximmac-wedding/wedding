@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Wedding Memories | Leandro & Immaculate</title>
+
+<style>
+:root {
+  --bg: #f7f3ec;
+  --cream: #eee5d8;
+  --gold: #b49a73;
+  --dark: #514638;
+  --muted: #897f72;
+  --white: #fffdf9;
+  --line: #e5dbcd;
+  --green: #476d52;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--dark);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+body, input, textarea, button {
+  font-family: inherit;
+}
+
+.page {
+  width: 100%;
+  max-width: 620px;
+  margin: auto;
+  padding: 24px 16px 50px;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(87, 67, 44, .06);
+}
+
+.header {
+  text-align: center;
+  padding: 35px 20px 28px;
+  background: linear-gradient(135deg, #eee5d8, #f9f5ef);
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.header h1 {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin: 15px 0 10px;
+  font-weight: normal;
+}
+
+.couple {
+  font-size: 18px;
+  font-style: italic;
+}
+
+.date {
+  margin-top: 15px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.content {
+  padding: 24px 20px;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.intro h2 {
+  font-weight: normal;
+  font-size: 23px;
+  margin: 0 0 12px;
+}
+
+.intro p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 14px;
+  letter-spacing: .4px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  color: var(--dark);
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--gold);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.upload-box {
+  border: 1.5px dashed #cdbb9f;
+  border-radius: 18px;
+  background: #fbf8f3;
+  padding: 25px 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.upload-box:active {
+  transform: scale(.99);
+}
+
+.upload-icon {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.upload-box h3 {
+  font-size: 18px;
+  font-weight: normal;
+  margin: 5px 0;
+}
+
+.upload-box p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+#photoInput {
+  display: none;
+}
+
+.selection-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.preview-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eee;
+}
+
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-photo {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: 0;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  background: rgba(40, 30, 20, .75);
+  color: white;
+  cursor: pointer;
+}
+
+.upload-button {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 17px;
+  background: var(--gold);
+  color: white;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: .2s;
+}
+
+.upload-button:hover {
+  background: #9e845e;
+}
+
+.upload-button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.progress-section {
+  display: none;
+  margin-top: 20px;
+}
+
+.progress-text {
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.progress-track {
+  height: 9px;
+  background: #eee5d8;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--green);
+  transition: width .3s;
+}
+
+.message {
+  display: none;
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.message.success {
+  display: block;
+  background: #edf5ee;
+  color: #355f40;
+}
+
+.message.error {
+  display: block;
+  background: #fbefec;
+  color: #9c3b2e;
+}
+
+.footer {
+  text-align: center;
+  padding: 22px 10px 5px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.footer .heart {
+  color: #bd8e8e;
+}
+
+@media (max-width: 420px) {
+  .page {
+    padding: 12px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .content {
+    padding: 20px 16px;
+  }
+
+  .preview-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <div class="card">
+
+    <header class="header">
+      <div class="eyebrow">Our Wedding Celebration</div>
+
+      <h1>OUR WEDDING MEMORIES</h1>
+
+      <div class="couple">
+        Leandro & Immaculate
+      </div>
+
+      <div class="date">
+        DECEMBER 08, 2026
+      </div>
+    </header>
+
+    <main class="content">
+
+      <div class="intro">
+        <h2>Share your moments with us ♡</h2>
+
+        <p>
+          Help us collect the beautiful moments you captured
+          during our wedding day. Upload your photos here
+          and become part of our forever memories.
+        </p>
+      </div>
+
+      <div class="field">
+
+        <label for="guestName">
+          Your Name *
+        </label>
+
+        <input
+          type="text"
+          id="guestName"
+          placeholder="Enter your name"
+          maxlength="100"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Your Photos *
+        </label>
+
+        <label class="upload-box" for="photoInput">
+
+          <div class="upload-icon">📸</div>
+
+          <h3>Choose Your Photos</h3>
+
+          <p>
+            Select multiple pictures from your phone
+          </p>
+
+          <p>
+            JPG, PNG or WEBP · Maximum 5MB per photo
+          </p>
+
+        </label>
+
+        <input
+          type="file"
+          id="photoInput"
+          accept="image/jpeg,image/png,image/webp"
+          multiple
+        >
+
+      </div>
+
+      <div class="selection-info">
+        <span id="photoCount">0 photos selected</span>
+        <span>Maximum 20 photos</span>
+      </div>
+
+      <div class="preview-grid" id="previewGrid"></div>
+
+      <div class="field" style="margin-top:22px">
+
+        <label for="caption">
+          Caption (Optional)
+        </label>
+
+        <textarea
+          id="caption"
+          maxlength="500"
+          placeholder="Share a message or a little story about these photos..."
+        ></textarea>
+
+      </div>
+
+      <button
+        class="upload-button"
+        id="uploadButton"
+      >
+        UPLOAD MY MEMORIES ♡
+      </button>
+
+      <div class="progress-section" id="progressSection">
+
+        <div class="progress-text" id="progressText">
+          Preparing upload...
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+      </div>
+
+      <div class="message" id="message"></div>
+
+    </main>
+
+  </div>
+
+  <footer class="footer">
+
+    <div>
+      <span class="heart">♡</span>
+      Captured by us. Shared by you.
+      Remembered forever.
+      <span class="heart">♡</span>
+    </div>
+
+    <div>
+      Leandro & Immaculate
+    </div>
+
+  </footer>
+
+</div>
+
+<script>
+
+// ============================================
+// CONFIGURATION
+// ============================================
+
+// REPLACE THIS WITH YOUR ACTUAL GOOGLE APPS SCRIPT URL
+
+const API_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+// ============================================
+// ELEMENTS
+// ============================================
+
+const photoInput = document.getElementById("photoInput");
+const guestNameInput = document.getElementById("guestName");
+const captionInput = document.getElementById("caption");
+const previewGrid = document.getElementById("previewGrid");
+const photoCount = document.getElementById("photoCount");
+const uploadButton = document.getElementById("uploadButton");
+const progressSection = document.getElementById("progressSection");
+const progressText = document.getElementById("progressText");
+const progressBar = document.getElementById("progressBar");
+const messageBox = document.getElementById("message");
+
+let selectedFiles = [];
+
+const MAX_PHOTOS = 20;
+const MAX_SIZE = 5 * 1024 * 1024;
+
+// ============================================
+// SELECT PHOTOS
+// ============================================
+
+photoInput.addEventListener("change", function () {
+
+  const incoming = Array.from(photoInput.files || []);
+
+  incoming.forEach(file => {
+
+    if (selectedFiles.length >= MAX_PHOTOS) {
+      return;
+    }
+
+    const duplicate = selectedFiles.some(existing =>
+      existing.name === file.name &&
+      existing.size === file.size &&
+      existing.lastModified === file.lastModified
+    );
+
+    if (!duplicate) {
+      selectedFiles.push(file);
+    }
+
+  });
+
+  photoInput.value = "";
+
+  renderPreviews();
+
+});
+
+// ============================================
+// PREVIEW PHOTOS
+// ============================================
+
+function renderPreviews() {
+
+  previewGrid.innerHTML = "";
+
+  selectedFiles.forEach((file, index) => {
+
+    const item = document.createElement("div");
+    item.className = "preview-item";
+
+    const img = document.createElement("img");
+
+    img.src = URL.createObjectURL(file);
+    img.alt = "Selected wedding photo";
+
+    const remove = document.createElement("button");
+
+    remove.className = "remove-photo";
+    remove.type = "button";
+    remove.textContent = "×";
+
+    remove.addEventListener("click", function () {
+
+      selectedFiles.splice(index, 1);
+
+      renderPreviews();
+
+    });
+
+    item.appendChild(img);
+    item.appendChild(remove);
+
+    previewGrid.appendChild(item);
+
+  });
+
+  photoCount.textContent =
+    selectedFiles.length + 
+    (selectedFiles.length === 1 ? " photo selected" : " photos selected");
+
+}
+
+// ============================================
+// FILE TO BASE64
+// ============================================
+
+function fileToBase64(file) {
+
+  return new Promise((resolve, reject) => {
+
+    const reader = new FileReader();
+
+    reader.onload = function () {
+
+      const result = String(reader.result || "");
+      const base64 = result.split(",")[1] || "";
+
+      resolve(base64);
+
+    };
+
+    reader.onerror = function () {
+      reject(new Error("Unable to read " + file.name));
+    };
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+// ============================================
+// UPLOAD ONE PHOTO
+// ============================================
+
+async function uploadOnePhoto(file, guestName, caption) {
+
+  const base64 = await fileToBase64(file);
+
+  const payload = {
+    action: "upload",
+    guestName: guestName,
+    caption: caption,
+    fileName: file.name,
+    mimeType: file.type,
+    base64: base64
+  };
+
+  const response = await fetch(API_URL, {
+
+    method: "POST",
+
+    // text/plain avoids a JSON preflight request
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+
+    body: JSON.stringify(payload)
+
+  });
+
+  const result = await response.json();
+
+  if (!result.success) {
+    throw new Error(result.message || "Upload failed.");
+  }
+
+  return result;
+
+}
+
+// ============================================
+// UPLOAD ALL PHOTOS
+// ============================================
+
+uploadButton.addEventListener("click", async function () {
+
+  const guestName = guestNameInput.value.trim();
+  const caption = captionInput.value.trim();
+
+  hideMessage();
+
+  if (!guestName) {
+    showMessage("Please enter your name first.", "error");
+    guestNameInput.focus();
+    return;
+  }
+
+  if (selectedFiles.length === 0) {
+    showMessage("Please select at least one photo.", "error");
+    return;
+  }
+
+  if (selectedFiles.length > MAX_PHOTOS) {
+    showMessage("Maximum of 20 photos per upload.", "error");
+    return;
+  }
+
+  for (const file of selectedFiles) {
+
+    if (file.size > MAX_SIZE) {
+
+      showMessage(
+        file.name + " exceeds the 5MB limit.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+
+      showMessage(
+        "Unsupported photo format: " + file.name,
+        "error"
+      );
+
+      return;
+
+    }
+
+  }
+
+  if (
+    API_URL === "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE"
+  ) {
+
+    showMessage(
+      "Please configure the Wedding Memories API URL first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  uploadButton.disabled = true;
+  uploadButton.textContent = "UPLOADING YOUR MEMORIES...";
+
+  progressSection.style.display = "block";
+
+  const total = selectedFiles.length;
+  let completed = 0;
+  let failed = [];
+
+  progressBar.style.width = "0%";
+
+  try {
+
+    for (let i = 0; i < total; i++) {
+
+      const file = selectedFiles[i];
+
+      progressText.textContent =
+        "Uploading photo " + (i + 1) + " of " + total + "...";
+
+      try {
+
+        await uploadOnePhoto(file, guestName, caption);
+
+        completed++;
+
+      } catch (err) {
+
+        failed.push(file.name);
+
+      }
+
+      const progress = Math.round(((i + 1) / total) * 100);
+
+      progressBar.style.width = progress + "%";
+
+    }
+
+    if (failed.length === 0) {
+
+      showMessage(
+        "♡ Thank you, " + guestName + "! " +
+        total + " photo(s) uploaded successfully. " +
+        "Your beautiful memories are now part of our wedding album!",
+        "success"
+      );
+
+      selectedFiles = [];
+      renderPreviews();
+
+      captionInput.value = "";
+
+    } else {
+
+      showMessage(
+        completed + " photo(s) uploaded successfully. " +
+        failed.length + " photo(s) failed. " +
+        "You may try uploading the failed photos again.",
+        "error"
+      );
+
+      // Retain only failed files for retry
+
+      selectedFiles = selectedFiles.filter(
+        file => failed.includes(file.name)
+      );
+
+      renderPreviews();
+
+    }
+
+  } finally {
+
+    uploadButton.disabled = false;
+    uploadButton.textContent = "UPLOAD MY MEMORIES ♡";
+
+  }
+
+});
+
+// ============================================
+// MESSAGE
+// ============================================
+
+function showMessage(text, type) {
+
+  messageBox.className = "message " + type;
+  messageBox.textContent = text;
+
+  messageBox.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+function hideMessage() {
+
+  messageBox.className = "message";
+  messageBox.textContent = "";
+
+}
+
+</script>
+
+</body>
+</html>
