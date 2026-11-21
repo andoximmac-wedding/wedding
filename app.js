@@ -801,34 +801,127 @@ const galleryNext =
 
   }
 
+    // ==========================================
+// WEDDING MEMORY GUEST IDENTITY
+// ==========================================
+
+const memoriesGuestId = (() => {
+
+  let id = localStorage.getItem("wedding_memories_guest_id");
+
+  if (!id) {
+    id = "guest_" + crypto.randomUUID();
+
+    localStorage.setItem(
+      "wedding_memories_guest_id",
+      id
+    );
+  }
+
+  return id;
+
+})();
+
+// ==========================================
+// GUEST NAME
+// ==========================================
+
+function memoriesGetGuestName() {
+
+  let name = localStorage.getItem(
+    "wedding_memories_guest_name"
+  );
+
+  if (!name) {
+
+    name = prompt(
+      "Please enter your name to send love to our wedding photos:"
+    );
+
+    if (!name || !name.trim()) {
+      name = "Wedding Guest";
+    }
+
+    name = name.trim();
+
+    localStorage.setItem(
+      "wedding_memories_guest_name",
+      name
+    );
+
+  }
+
+  return name;
+
+}
+
+// ==========================================
+// GET LOCALLY LIKED PHOTOS
+// ==========================================
+
+function memoriesGetLikedPhotos() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(
+        "wedding_memories_liked_photos"
+      ) || "[]"
+    );
+
+  } catch (error) {
+
+    return [];
+
+  }
+
+}
+
+// ==========================================
+// SAVE LOCALLY LIKED PHOTOS
+// ==========================================
+
+function memoriesSaveLikedPhotos(photos) {
+
+  localStorage.setItem(
+    "wedding_memories_liked_photos",
+    JSON.stringify(photos)
+  );
+
+}
+
   // ==========================================
   // CREATE PHOTO CARD
   // ==========================================
 
 // ==========================================
-// CREATE PHOTO CARD — GOOGLE DRIVE IMAGE FIX
+// CREATE PHOTO CARD WITH LIKE BUTTON
 // ==========================================
 
 function memoriesCreateCard(photo) {
 
   const originalUrl = String(photo.imageUrl || "");
 
-  // Extract Google Drive file ID
   let fileId = "";
 
   try {
+
     const parsedUrl = new URL(originalUrl);
+
     fileId = parsedUrl.searchParams.get("id") || "";
+
   } catch (error) {
+
     fileId = "";
+
   }
 
-  // Use Google Drive thumbnail URL for gallery display
   const imageUrl = fileId
     ? `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1200`
     : originalUrl;
 
   const safeImageUrl = memoriesEscapeHTML(imageUrl);
+
   const safeOriginalUrl = memoriesEscapeHTML(originalUrl);
 
   const guestName = memoriesEscapeHTML(
@@ -843,8 +936,20 @@ function memoriesCreateCard(photo) {
     memoriesFormatDate(photo.uploadDate)
   );
 
+  const photoId = memoriesEscapeHTML(
+    photo.photoId || ""
+  );
+
+  const likedPhotos = memoriesGetLikedPhotos();
+
+  const isLiked = likedPhotos.includes(
+    String(photo.photoId)
+  );
+
+  const likeCount = Number(photo.likeCount || 0);
+
   return `
-    <article class="memory-card">
+    <article class="memory-card" data-photo-id="${photoId}">
 
       <div class="memory-photo-wrap">
 
@@ -852,7 +957,6 @@ function memoriesCreateCard(photo) {
           href="${safeOriginalUrl}"
           target="_blank"
           rel="noopener"
-          aria-label="View photo uploaded by ${guestName}"
         >
 
           <img
@@ -860,7 +964,6 @@ function memoriesCreateCard(photo) {
             src="${safeImageUrl}"
             alt="Wedding memory shared by ${guestName}"
             loading="lazy"
-            onerror="this.onerror=null;this.src='${safeOriginalUrl}'"
           >
 
         </a>
@@ -885,13 +988,41 @@ function memoriesCreateCard(photo) {
           </div>
         ` : ""}
 
+        <div class="memory-reaction-row">
+
+          <button
+            type="button"
+            class="memory-like-button ${isLiked ? "liked" : ""}"
+            data-photo-id="${photoId}"
+            aria-pressed="${isLiked}"
+          >
+
+            <span class="memory-heart">
+              ${isLiked ? "♥" : "♡"}
+            </span>
+
+            <span class="memory-like-label">
+              ${isLiked ? "Loved" : "Love"}
+            </span>
+
+          </button>
+
+          <span
+            class="memory-like-count"
+            data-like-count="${photoId}"
+          >
+            ${likeCount}
+            ${likeCount === 1 ? "love" : "loves"}
+          </span>
+
+        </div>
+
       </div>
 
     </article>
   `;
 
-}
-  // ==========================================
+}  // ==========================================
   // LOAD GALLERY
   // ==========================================
 
@@ -999,6 +1130,136 @@ function memoriesCreateCard(photo) {
 
   }
 
+    // ==========================================
+// LIKE / UNLIKE PHOTO
+// ==========================================
+
+memoriesGrid.addEventListener("click", async function(event) {
+
+  const button = event.target.closest(
+    ".memory-like-button"
+  );
+
+  if (!button) return;
+
+  const photoId = button.dataset.photoId;
+
+  if (!photoId || button.disabled) return;
+
+  button.disabled = true;
+
+  try {
+
+    const guestName = memoriesGetGuestName();
+
+    const response = await fetch(MEMORIES_API_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+
+      body: JSON.stringify({
+
+        action: "react",
+
+        photoId: photoId,
+
+        guestId: memoriesGuestId,
+
+        guestName: guestName,
+
+        reactionType: "LIKE"
+
+      })
+
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+
+      throw new Error(
+        result.message || "Unable to update reaction."
+      );
+
+    }
+
+    // SAVE LOCAL LIKE STATE
+
+    let likedPhotos = memoriesGetLikedPhotos();
+
+    if (result.liked) {
+
+      if (!likedPhotos.includes(photoId)) {
+        likedPhotos.push(photoId);
+      }
+
+    } else {
+
+      likedPhotos = likedPhotos.filter(
+        id => id !== photoId
+      );
+
+    }
+
+    memoriesSaveLikedPhotos(likedPhotos);
+
+    // UPDATE BUTTON
+
+    button.classList.toggle(
+      "liked",
+      result.liked
+    );
+
+    button.setAttribute(
+      "aria-pressed",
+      String(result.liked)
+    );
+
+    button.querySelector(
+      ".memory-heart"
+    ).textContent = result.liked ? "♥" : "♡";
+
+    button.querySelector(
+      ".memory-like-label"
+    ).textContent = result.liked ? "Loved" : "Love";
+
+    // UPDATE COUNTER
+
+    const countElement = memoriesGrid.querySelector(
+      `[data-like-count="${photoId}"]`
+    );
+
+    if (countElement) {
+
+      const count = Number(result.likeCount || 0);
+
+      countElement.textContent =
+        count + (count === 1 ? " love" : " loves");
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Wedding Memories Reaction Error:",
+      error
+    );
+
+    alert(
+      "Unable to send your love right now. Please try again."
+    );
+
+  } finally {
+
+    button.disabled = false;
+
+  }
+
+});
+    
   // ==========================================
   // INITIAL LOAD
   // ==========================================
